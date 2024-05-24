@@ -14,4 +14,7 @@ public class AmministratoreSingleton{
     public static Amministratore getAmministrator(){
         return sing==null?null:sing.me;
     }
+    public static void deleteSingelton(){
+        sing=null;
+    }
 }

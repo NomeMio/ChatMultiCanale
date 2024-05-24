@@ -1,6 +1,6 @@
 package models;
 
-public class Utente {
+public abstract class Utente {
     private final String cf;
     private final String nome;
     private final String cognome;

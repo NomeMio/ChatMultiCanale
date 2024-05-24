@@ -36,14 +36,14 @@ public class LoginDao {
             } else if (result.equals("2")) {
                 return new Amministratore(cf,nome,cognome,email);
             }
-            return new Utente(cf,nome,cognome,email);
+            return null;
         }
 
     }
 
     private static CallableStatement preapareStatement(CredentialBean bean) throws SQLException {
         Connection connection= ConnectionSIngleton.getConnessione();
-        CallableStatement test=connection.prepareCall("{call login(?,?,?,?)}");
+        CallableStatement test=connection.prepareCall("{call login(?,?,?,?,?,?,?)}");
         test.setString(1, bean.getUserName());
         test.setString(2, bean.getPassword());
         test.registerOutParameter(StaticNames.numeriResult, Types.NUMERIC);

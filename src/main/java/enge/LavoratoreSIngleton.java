@@ -15,4 +15,7 @@ public class LavoratoreSIngleton {
     public static Lavoratore getLavoratore(){
         return sing==null?null:sing.me;
     }
+    public static void deleteSingelton(){
+        sing=null;
+    }
 }
