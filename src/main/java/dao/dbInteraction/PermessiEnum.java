@@ -1,5 +1,5 @@
 package dao.dbInteraction;
 
 public enum PermessiEnum {
-    LOGIN,AMMINISTRATORE,LAVORATORE,CAPOPROGETTO
+    LOGIN, AMMINISTRATORE, LAVORATORE, CAPOPROGETTO
 }

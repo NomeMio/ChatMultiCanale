@@ -9,11 +9,12 @@ import java.util.logging.SimpleFormatter;
 public class CostumLogger {
     private final Logger logger = Logger.getLogger(CostumLogger.class.getName());
     private FileHandler fileHandler = null;
-    public static final String LOGGINGFILE="logFile.log";
+    public static final String LOGGINGFILE = "logFile.log";
     private static CostumLogger me;
-    protected  CostumLogger(){
+
+    protected CostumLogger() {
         try {
-            fileHandler=new FileHandler(LOGGINGFILE, true);
+            fileHandler = new FileHandler(LOGGINGFILE, true);
         } catch (SecurityException | IOException e) {
             CostumLogger.getInstance().logError(e);
             return;
@@ -24,26 +25,29 @@ public class CostumLogger {
 
     }
 
-    public static CostumLogger getInstance(){
-        if(me!=null && me.fileHandler!=null){
+    public static CostumLogger getInstance() {
+        if (me != null && me.fileHandler != null) {
             return me;
-        }else if(me!=null) reset();
-        me=new CostumLogger();
+        } else if (me != null) reset();
+        me = new CostumLogger();
         return me;
     }
-    public static void reset(){
-        if(me!=null && me.fileHandler!=null) {
+
+    public static void reset() {
+        if (me != null && me.fileHandler != null) {
             me.logger.removeHandler(me.fileHandler);
-            me=null;
+            me = null;
         }
     }
-    public void logError(Exception error){
-        if(fileHandler!=null) logger.log(Level.WARNING,
+
+    public void logError(Exception error) {
+        if (fileHandler != null) logger.log(Level.WARNING,
                 //() -> Arrays.toString(error.getStackTrace())
                 error.getMessage()
         );
     }
-    public void logString(String toLog){
-        if(fileHandler!=null) logger.log(Level.WARNING,toLog);
+
+    public void logString(String toLog) {
+        if (fileHandler != null) logger.log(Level.WARNING, toLog);
     }
 }

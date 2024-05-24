@@ -1,4 +1,4 @@
 package Exceptions;
 
-public class LoginFallitoException extends Exception{
+public class LoginFallitoException extends Exception {
 }

@@ -1,26 +1,28 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 public class PrinterCostum {
-    public  static  void printFileResource(String file){
+    public static void printFileResource(String file) {
         BufferedReader in = null;
         try {
-            in =new BufferedReader(new FileReader(file));
+            in = new BufferedReader(new FileReader(file));
             String line = in.readLine();
-            while(line != null)
-            {
+            while (line != null) {
                 System.out.println(line);
                 line = in.readLine();
             }
             in.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             CostumLogger.getInstance().logError(e);
         }
     }
-    public static void clearConsole(int delay)
-    {
+
+    public static void clearConsole(int delay) {
         try {
             TimeUnit.SECONDS.sleep(delay);
             System.out.print("\033[H\033[2J");
@@ -31,13 +33,13 @@ public class PrinterCostum {
         }
     }
 
-    public static String getString(){
+    public static String getString() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String s="";
+        String s = "";
 
         try {
-            s=reader.readLine();
-           // reader.close();
+            s = reader.readLine();
+            // reader.close();
         } catch (IOException e) {
             CostumLogger.getInstance().logString("dd");
         }

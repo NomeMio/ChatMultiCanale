@@ -1,21 +1,21 @@
 package utils.textArt;
 
 public class Arts {
-    public static String benvenuto= """
+    public static String benvenuto = """
              ____                                  _       \s
             | __ )  ___ _ ____   _____ _ __  _   _| |_ ___ \s
             |  _ \\ / _ \\ '_ \\ \\ / / _ \\ '_ \\| | | | __/ _ \\\s
             | |_) |  __/ | | \\ V /  __/ | | | |_| | || (_) |
             |____/ \\___|_| |_|\\_/ \\___|_| |_|\\__,_|\\__\\___/\s
             """;
-    public static String alla= """
+    public static String alla = """
                    _ _      \s
               __ _| | | __ _\s
              / _` | | |/ _` |
             | (_| | | | (_| |
              \\__,_|_|_|\\__,_|
             """;
-    public static String chat= """
+    public static String chat = """
               ____ _           _     __  __       _ _   _                       _     \s
              / ___| |__   __ _| |_  |  \\/  |_   _| | |_(_) ___ __ _ _ __   __ _| | ___\s
             | |   | '_ \\ / _` | __| | |\\/| | | | | | __| |/ __/ _` | '_ \\ / _` | |/ _ \\

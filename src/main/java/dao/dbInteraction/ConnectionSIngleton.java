@@ -2,7 +2,6 @@ package dao.dbInteraction;
 
 import org.mariadb.jdbc.Connection;
 import utils.EnvCostants;
-import utils.PrinterCostum;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,11 +13,11 @@ public class ConnectionSIngleton {
     private static String user;
     private static String pass;
 
-    private void setRole(PermessiEnum ruolo){
-        switch (ruolo){
+    private void setRole(PermessiEnum ruolo) {
+        switch (ruolo) {
             case LOGIN:
                 user = System.getenv(EnvCostants.LOGIN_USER);
-                pass=System.getenv(EnvCostants.LOGIN_PASSWORD);
+                pass = System.getenv(EnvCostants.LOGIN_PASSWORD);
                 break;
             case AMMINISTRATORE:
                 break;
@@ -29,11 +28,12 @@ public class ConnectionSIngleton {
             default:
         }
     }
-    private ConnectionSIngleton()  {
+
+    private ConnectionSIngleton() throws SQLException {
         connection_url = System.getenv(EnvCostants.ENV_URL);
         setRole(PermessiEnum.LOGIN);
         try {
-            connessione = (Connection) DriverManager.getConnection(connection_url, user,pass);
+            connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
         } catch (SQLException e) {
             System.out.println("Variabili d'ambiente non cofigurate oppure configurate male chiamare l'amministratore di sistema");
             throw e;
@@ -44,10 +44,11 @@ public class ConnectionSIngleton {
     public void changeRoles(PermessiEnum e) throws SQLException {
         setRole(e);
         connessione.close();
-        connessione=(Connection) DriverManager.getConnection(connection_url, user,pass);
+        connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
     }
+
     public static Connection getConnessione() throws SQLException {
-        if(istanza==null) istanza=new ConnectionSIngleton();
+        if (istanza == null) istanza = new ConnectionSIngleton();
         return istanza.connessione;
     }
 
