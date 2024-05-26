@@ -4,6 +4,8 @@ import Exceptions.LoginFallitoException;
 import beans.CredentialBean;
 import beans.UserBean;
 import dao.LoginDao;
+import dao.dbInteraction.ConnectionSIngleton;
+import dao.dbInteraction.PermessiEnum;
 import enge.AmministratoreSingleton;
 import enge.LavoratoreSIngleton;
 import models.Amministratore;
@@ -27,6 +29,7 @@ public class SessionManager {
         }
         if (utente instanceof Amministratore e) {
             AmministratoreSingleton.createSingleton(e);
+            ConnectionSIngleton.changePermissionLevel(PermessiEnum.AMMINISTRATORE);
         } else if (utente instanceof Lavoratore e) {
             LavoratoreSIngleton.createSingleton(e);
         }

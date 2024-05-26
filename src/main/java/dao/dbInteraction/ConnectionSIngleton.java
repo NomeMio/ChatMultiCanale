@@ -7,19 +7,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionSIngleton {
-    public static ConnectionSIngleton istanza;
+    private static ConnectionSIngleton istanza;
     private Connection connessione;
     private static String connection_url;
     private static String user;
     private static String pass;
 
-    private void setRole(PermessiEnum ruolo) {
+    private  static  void setRole(PermessiEnum ruolo) {
         switch (ruolo) {
             case LOGIN:
                 user = System.getenv(EnvCostants.LOGIN_USER);
                 pass = System.getenv(EnvCostants.LOGIN_PASSWORD);
                 break;
             case AMMINISTRATORE:
+                user=System.getenv(EnvCostants.AMMINISTRATORE_USER);
+                pass=System.getenv(EnvCostants.AMMINISTRATORE_PASSWORD);
                 break;
             case LAVORATORE:
                 break;
@@ -41,10 +43,14 @@ public class ConnectionSIngleton {
 
     }
 
-    public void changeRoles(PermessiEnum e) throws SQLException {
-        setRole(e);
-        connessione.close();
-        connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
+    public static  void changePermissionLevel(PermessiEnum e) throws SQLException {
+        if(istanza==null){
+            istanza=new ConnectionSIngleton();
+        }
+            setRole(e);
+            istanza.connessione.close();
+            istanza.connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
+
     }
 
     public static Connection getConnessione() throws SQLException {

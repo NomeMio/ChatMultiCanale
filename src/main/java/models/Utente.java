@@ -4,14 +4,14 @@ public abstract class Utente {
     private final String cf;
     private final String nome;
     private final String cognome;
-    private final String Email;
+    private final String email;
 
     public String getNome() {
         return nome;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public String getCognome() {
@@ -22,12 +22,17 @@ public abstract class Utente {
         return cf;
     }
 
-    public Utente(String cf, String nome, String cognome, String email) {
+    protected Utente(String cf, String nome, String cognome, String email) {
         this.cf = cf;
         this.nome = nome;
         this.cognome = cognome;
-        Email = email;
+        this.email = email;
+    }
+    protected Utente(String cf, String nome, String cognome) {
+        this.cf = cf;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email=null;
     }
 
-    abstract Utente createUtente(String cf, String nome, String cognome, String email);
 }
