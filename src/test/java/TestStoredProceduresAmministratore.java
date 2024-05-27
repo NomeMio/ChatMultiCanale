@@ -1,3 +1,4 @@
+import beans.ProgettoBean;
 import com.acidmanic.consoletools.drawing.AsciiBorder;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
 import com.acidmanic.consoletools.rendering.componentfeatures.Renderable;
@@ -21,5 +22,10 @@ public class TestStoredProceduresAmministratore extends AmministratoreGraphicalC
         ConnectionSIngleton.changePermissionLevel(PermessiEnum.AMMINISTRATORE);
         this.mostraProgettiLoop();
     }
-
+    @Test
+    public void printCandidates() throws SQLException {
+        ConnectionSIngleton.changePermissionLevel(PermessiEnum.AMMINISTRATORE);
+        AmministratorDao dao=new AmministratorDao();
+        System.out.println(dao.listaCandidatiPerCapoProgetto(new ProgettoBean("Bomboclat","","","","")).get(1).getName());
+    }
 }

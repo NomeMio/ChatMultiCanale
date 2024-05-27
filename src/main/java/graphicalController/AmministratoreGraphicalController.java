@@ -1,18 +1,16 @@
 package graphicalController;
 
 import Exceptions.DbProblemEception;
-import Exceptions.TabellaFormattataMaleException;
+import beans.CandidatiCapoProgettoBean;
 import beans.ProgettoBean;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
-import com.acidmanic.consoletools.table.Cell;
-import com.acidmanic.consoletools.table.Row;
 import com.acidmanic.consoletools.table.Table;
 import com.acidmanic.consoletools.table.builders.TableBuilder;
 import controllers.AmministratoreController;
 import controllers.SessionManager;
 import utils.PrinterCostum;
 
-import java.lang.invoke.SwitchPoint;
+import java.sql.SQLException;
 
 public class AmministratoreGraphicalController implements Runnable {
 
@@ -24,6 +22,7 @@ public class AmministratoreGraphicalController implements Runnable {
             System.out.print("Scegliere operazione: ");
             String scelta = PrinterCostum.getString();
             switch (scelta) {
+                //Caso uscita dal applicazione
                 case "3":
                     SessionManager controllerSessione=new SessionManager();
                     controllerSessione.logOut();
@@ -31,13 +30,19 @@ public class AmministratoreGraphicalController implements Runnable {
                     System.out.println("Arrivederci!");
                     PrinterCostum.clearConsole(2);
                     return;
+                    //Caso stama lista progetti
                 case "1":
                     mostraProgettiLoop();
+                    break;
+                case "2":
+                    selezionaCapiProgettoLoop();
                     break;
                 default:
                     continue;
 
             }
+            PrinterCostum.clearConsole(0);
+
         }
 
     }
@@ -45,45 +50,55 @@ public class AmministratoreGraphicalController implements Runnable {
     protected void mostraProgettiLoop(){
         PrinterCostum.clearConsole(0);
         AmministratoreController controller = new AmministratoreController();
+        ProgettoBean[] progetti;
         try {
-            ProgettoBean[] progetti= controller.getProgetti();
-            try {
-                PrinterCostum.stampaTabella(convertiToMatrix(progetti));
-            } catch (TabellaFormattataMaleException e) {
-                System.out.println(e.getMessage());
+             progetti= controller.getProgetti();
 
-            }
         } catch (DbProblemEception e) {
             System.out.println("Errore di connessione alla base di dati");
             return;
         }
+        TablePrinter.proggettiPrinter(progetti,true);
         System.out.println("Premi invio per tornare al menu");
         PrinterCostum.getString();
+        PrinterCostum.clearConsole(0);
 
 
     }
 
-    private String[][] convertiToMatrix(ProgettoBean[] progetti){
-            int dim=progetti.length;
-            String[] nomiP,dataP,cfC,nomeC,cognomeC;
-            nomiP=new String[dim];dataP=new String[dim];cfC=new String[dim];nomeC=new String[dim];cognomeC=new String[dim];
-            System.out.println(progetti[0].getNome());
-            nomiP[0]="Nome Progetto";
-            dataP[0]="Data di creazione";
-            cfC[0]="Cf Capo progetto";
-            nomeC[0]="Nome Capo progetto";
-            cognomeC[0]="Cognome Capo Progetto";
-            for(int i=0;i<dim;i++){
-                nomiP[i+1]=progetti[i].getNome();
-                dataP[i+1]=progetti[i].getData();
-                nomeC[i+1]=progetti[i].getNomeCapo();
-                cfC[i+1]=progetti[i].getCfCapo();
-                cognomeC[i+1]=progetti[i].getCognomeCapo();
-                System.out.println(progetti[i].getNome()+" "+progetti[i].getData()+" "+progetti[i].getCfCapo()+" "+progetti[i].getNomeCapo());
-            }
+    protected void selezionaCapiProgettoLoop() {
+        PrinterCostum.clearConsole(0);
+        AmministratoreController controller = new AmministratoreController();
+        ProgettoBean[] progetti;
+        try {
+            progetti = controller.getProgettiSenzaCapo();
 
-            return new String[][]{nomiP, dataP, cfC, nomeC, cognomeC};
+        } catch (DbProblemEception e) {
+            System.out.println("Errore di connessione alla base di dati");
+            return;
+        }
+        int dim = progetti.length;
+        TablePrinter.proggettiPrinter(progetti, false);
+        int scelta;
+        while (true) {
+            scelta = -1;
+            System.out.println("Inserire l'indice del progetto che in cui si vuole inserire un nuovo capo progetto:");
+            scelta = Integer.parseInt(PrinterCostum.getString());
+            if (scelta > dim || scelta <= 0) continue;
+            else break;
+        }
+        PrinterCostum.clearConsole(0);
+        CandidatiCapoProgettoBean[] candidati;
+        try {
+            candidati = controller.getCandidati(progetti[scelta]);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        TablePrinter.candidatiPrinter(candidati);
+
     }
+
+
     private void renderMenu() {
         AmministratoreController controller = new AmministratoreController();
 
@@ -103,4 +118,6 @@ public class AmministratoreGraphicalController implements Runnable {
                 .build();
         System.out.println(table.render());
     }
+
+
 }

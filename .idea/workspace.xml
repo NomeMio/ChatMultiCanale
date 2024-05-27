@@ -9,16 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" name="Changes" comment="sw">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Exceptions/DbProblemEception.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Exceptions/TabellaFormattataMaleException.java" afterDir="false" />
+    <list default="true" id="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" name="Changes" comment="swdsada">
+      <change afterPath="$PROJECT_DIR$/src/main/java/beans/CandidatiCapoProgettoBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/graphicalController/TablePrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CandidatoCapoProgetto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/beans/ProgettoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/beans/ProgettoBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AmministratoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AmministratoreController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/AmministratorDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AmministratorDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/StaticNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/StaticNames.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/graphicalController/AmministratoreGraphicalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphicalController/AmministratoreGraphicalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/graphicalController/LoginGraphicalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphicalController/LoginGraphicalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/PrinterCostum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/PrinterCostum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestStoredProceduresAmministratore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestStoredProceduresAmministratore.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,54 +60,72 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.TestStoredProceduresAmministratore.printListProgetti.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TestStoredProceduresAmministratore.testTableWithTableConstructor.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ChatMultiCanale [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ChatMultiCanale [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ChatMultiCanale [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ChatMultiCanale [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.5936011&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.TestStoredProceduresAmministratore.printCandidates.executor": "Run",
+    "JUnit.TestStoredProceduresAmministratore.printListProgetti.executor": "Run",
+    "JUnit.TestStoredProceduresAmministratore.testTableWithTableConstructor.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.ChatMultiCanale [compile].executor": "Run",
+    "Maven.ChatMultiCanale [deploy].executor": "Run",
+    "Maven.ChatMultiCanale [install].executor": "Run",
+    "Maven.ChatMultiCanale [validate].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.5936011",
+    "settings.editor.selected.configurable": "project.propCompiler",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/textArt" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestStoredProceduresAmministratore.printListProgetti">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/src/main/resources/db_conn.env" />
       </option>
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="ChatMultiCanale" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestStoredProceduresAmministratore.printCandidates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatMultiCanale" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestStoredProceduresAmministratore" />
+      <option name="METHOD_NAME" value="printCandidates" />
+      <option name="TEST_OBJECT" value="method" />
+      <envs>
+        <env name="chatMulticanaleAmministratore" value="amministratore_user" />
+        <env name="chatMulticanaleAmministratorePassword" value="amministratorePassword123@" />
+        <env name="chatMulticanaleLogin" value="login_user" />
+        <env name="chatMulticanaleLoginPassword" value="loginpassword812@" />
+        <env name="chatMulticanaleURL" value="jdbc:mariadb://localhost:3306/progettoBasi" />
+      </envs>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -136,19 +153,24 @@
       <option name="MAIN_CLASS_NAME" value="TestStoredProceduresAmministratore" />
       <option name="METHOD_NAME" value="testTableWithTableConstructor" />
       <option name="TEST_OBJECT" value="method" />
+      <envs>
+        <env name="chatMulticanaleURL" value="jdbc:mariadb://localhost:3306/progettoBasi chatMulticanaleLogin=login_user chatMulticanaleLoginPassword=loginpassword812@ chatMulticanaleAmministratore=amministratore_user chatMulticanaleAmministratorePassword=amministratorePassword123@" />
+      </envs>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.TestStoredProceduresAmministratore.printCandidates" />
       <item itemvalue="JUnit.TestStoredProceduresAmministratore.testTableWithTableConstructor" />
       <item itemvalue="JUnit.TestStoredProceduresAmministratore.printListProgetti" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestStoredProceduresAmministratore.printListProgetti" />
+        <item itemvalue="JUnit.TestStoredProceduresAmministratore.printCandidates" />
         <item itemvalue="JUnit.TestStoredProceduresAmministratore.testTableWithTableConstructor" />
+        <item itemvalue="JUnit.TestStoredProceduresAmministratore.printListProgetti" />
       </list>
     </recent_temporary>
   </component>
@@ -165,6 +187,8 @@
       <workItem from="1716553354058" duration="15319000" />
       <workItem from="1716660161270" duration="9134000" />
       <workItem from="1716811170901" duration="6307000" />
+      <workItem from="1716817978648" duration="5381000" />
+      <workItem from="1716824728543" duration="5775000" />
     </task>
     <task id="LOCAL-00001" summary="initialization commit">
       <option name="closed" value="true" />
@@ -198,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716725567759</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="swdsada">
+      <option name="closed" value="true" />
+      <created>1716818211237</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716818211237</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,7 +255,8 @@
     <MESSAGE value="fasfaf" />
     <MESSAGE value="finished login controller( SessionManager.java) and started AmministratoreController.java use case, started usinf console tools for making tables, added a tool to clean terminal with a time delay" />
     <MESSAGE value="sw" />
-    <option name="LAST_COMMIT_MESSAGE" value="sw" />
+    <MESSAGE value="swdsada" />
+    <option name="LAST_COMMIT_MESSAGE" value="swdsada" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
