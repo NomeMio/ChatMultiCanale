@@ -27,7 +27,7 @@ public class LoginGraphicalController implements Runnable {
                 PrinterCostum.clearConsole(2);
                 switch (controller.getRole()){
                     case Amministratore -> {
-                        new Thread(new AmministratoreGraphicalController()).start();
+                        new AmministratoreGraphicalController().run();
                     }
                     case Lavoratore -> {
                         new Thread(new LavoratoreGraphicalController()).start();
@@ -41,7 +41,7 @@ public class LoginGraphicalController implements Runnable {
                 PrinterCostum.clearConsole(0);
                 System.out.println("Login fallito, ceredenziali errate.");
             } catch (SQLException e) {
-                System.out.println("Errore con il database.");
+                System.out.println("Errore con il database."+e.getMessage());
                 return;
             }
 

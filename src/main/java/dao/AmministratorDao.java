@@ -31,7 +31,8 @@ public class AmministratorDao {
         if(result){
             ResultSet reslutSet=statement.getResultSet();
             while (reslutSet.next()) {
-                progetti.add(Progetto.getProgetto(reslutSet.getString(StaticNames.nomeProgetto),reslutSet.getDate(StaticNames.dataProgetto), new Lavoratore(StaticNames.cfCapo,StaticNames.nomeCapo,StaticNames.cognomeCapo)));
+                Lavoratore lav=reslutSet.getString(StaticNames.cfCapo)==null?new Lavoratore("","",""): new Lavoratore(reslutSet.getString(StaticNames.cfCapo),reslutSet.getString(StaticNames.nomeCapo),reslutSet.getString(StaticNames.cognomeCapo));
+                progetti.add(Progetto.getProgetto(reslutSet.getString(StaticNames.nomeProgetto),reslutSet.getDate(StaticNames.dataProgetto),lav));
             }
             return progetti;
         }else{

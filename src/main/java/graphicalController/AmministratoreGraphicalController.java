@@ -1,5 +1,8 @@
 package graphicalController;
 
+import Exceptions.DbProblemEception;
+import Exceptions.TabellaFormattataMaleException;
+import beans.ProgettoBean;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
 import com.acidmanic.consoletools.table.Cell;
 import com.acidmanic.consoletools.table.Row;
@@ -12,11 +15,10 @@ import utils.PrinterCostum;
 import java.lang.invoke.SwitchPoint;
 
 public class AmministratoreGraphicalController implements Runnable {
-    AmministratoreController controller;
 
     @Override
     public void run() {
-        controller = new AmministratoreController();
+        AmministratoreController controller = new AmministratoreController();
         while(true) {
             renderMenu();
             System.out.print("Scegliere operazione: ");
@@ -30,7 +32,7 @@ public class AmministratoreGraphicalController implements Runnable {
                     PrinterCostum.clearConsole(2);
                     return;
                 case "1":
-                    mostraProgetti();
+                    mostraProgettiLoop();
                     break;
                 default:
                     continue;
@@ -39,43 +41,52 @@ public class AmministratoreGraphicalController implements Runnable {
         }
 
     }
+    //protected--> @test
+    protected void mostraProgettiLoop(){
+        PrinterCostum.clearConsole(0);
+        AmministratoreController controller = new AmministratoreController();
+        try {
+            ProgettoBean[] progetti= controller.getProgetti();
+            try {
+                PrinterCostum.stampaTabella(convertiToMatrix(progetti));
+            } catch (TabellaFormattataMaleException e) {
+                System.out.println(e.getMessage());
 
-    private void mostraProgetti(){
-        Table outerTable = new Table();
-
-        outerTable.setBorder(AsciiBorders.DOUBLELINE);
-
-        /* Adding a table as a cell */
-        Table innerTable = new Table();
-        innerTable.getRows().add(new Row());
-        innerTable.getRows().add(new Row());
-        innerTable.getRows().get(0).getCells().add(new Cell("Inner00"));
-        innerTable.getRows().get(0).getCells().add(new Cell("Inner01"));
-        innerTable.getRows().get(1).getCells().add(new Cell("Inner10"));
-        innerTable.getRows().get(1).getCells().add(new Cell("Inner11"));
-
-        innerTable.setCellsBorders(AsciiBorders.SOLID);
-        innerTable.setBorder(AsciiBorders.SOLID);
-
-
-
-        System.out.println(innerTable.render());
-
-        Row row = new Row();
-
-        /* Add a simple cell first */
-        row.getCells().add(new Cell("A Cell At Left"));
-
-        /* Add innerTable as another cell beside the former */
-        row.getCells().add(innerTable);
-
-        outerTable.getRows().add(row);
+            }
+        } catch (DbProblemEception e) {
+            System.out.println("Errore di connessione alla base di dati");
+            return;
+        }
+        System.out.println("Premi invio per tornare al menu");
+        PrinterCostum.getString();
 
 
-        System.out.println(outerTable.render());
     }
 
+    private String[][] convertiToMatrix(ProgettoBean[] progetti){
+            int dim=progetti.length;
+            String[] nomiP,dataP,cfC,nomeC,cognomeC;
+            nomiP=new String[dim];dataP=new String[dim];cfC=new String[dim];nomeC=new String[dim];cognomeC=new String[dim];
+            System.out.println(progetti[0].getNome());
+            nomiP[0]="Nome Progetto";
+            dataP[0]="Data di creazione";
+            cfC[0]="Cf Capo progetto";
+            nomeC[0]="Nome Capo progetto";
+            cognomeC[0]="Cognome Capo Progetto";
+            for(int i=0;i<dim;i++){
+                nomiP[i+1]=progetti[i].getNome();
+                dataP[i+1]=progetti[i].getData();
+                nomeC[i+1]=progetti[i].getNomeCapo();
+                cfC[i+1]=progetti[i].getCfCapo();
+                cognomeC[i+1]=progetti[i].getCognomeCapo();
+                System.out.println(progetti[i].getNome()+" "+progetti[i].getData()+" "+progetti[i].getCfCapo()+" "+progetti[i].getNomeCapo());
+            }
+
+            return new String[][]{nomiP, dataP, cfC, nomeC, cognomeC};
+    }
     private void renderMenu() {
+        AmministratoreController controller = new AmministratoreController();
+
         Table table = new TableBuilder()
                 .tableBorder(AsciiBorders.DOUBLELINE)
                 .cell(

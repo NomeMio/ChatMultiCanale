@@ -7,12 +7,12 @@ public class ProgettoBean {
     private String cognomeCapo;
     private String cfCapo;
 
-    public ProgettoBean(String nome, String cfCapo, String cognomeCapo, String nomeCapo, String data) {
+    public ProgettoBean(String nome, String cfCapo, String cognomeCapo, String nomeCapo, String c) {
         this.nome = nome;
         this.cfCapo = cfCapo;
         this.cognomeCapo = cognomeCapo;
         this.nomeCapo = nomeCapo;
-        this.data = data;
+        this.data = c;
     }
 
     public String getData() {

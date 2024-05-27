@@ -1,9 +1,15 @@
 package utils;
 
+import Exceptions.TabellaFormattataMaleException;
+import com.acidmanic.consoletools.table.builders.TableBuilder;
+import utils.textArt.BordersAsciTableNEw;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class PrinterCostum {
@@ -44,6 +50,21 @@ public class PrinterCostum {
             CostumLogger.getInstance().logString("dd");
         }
         return s;
+    }
+
+    public static void stampaTabella(String[][] tabella) throws TabellaFormattataMaleException {
+        TableBuilder table = new TableBuilder();
+        int lenght=tabella[0].length;
+        for (String[] colonna:tabella){
+            if(colonna.length!=lenght)throw new TabellaFormattataMaleException();
+            Iterator<String> it= Arrays.stream(colonna).iterator();
+            TableBuilder test=new TableBuilder().row().cell(it.next()).border(BordersAsciTableNEw.ONLYBOt);
+            while(it.hasNext()){
+                test.row().cell(it.next());
+            }
+            table.cell(test.build()).border(BordersAsciTableNEw.OnlyLati);
+        }
+        System.out.println(table.build().render());
     }
 
 }
