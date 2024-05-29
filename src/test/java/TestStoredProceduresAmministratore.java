@@ -1,3 +1,4 @@
+import beans.CandidatiCapoProgettoBean;
 import beans.ProgettoBean;
 import com.acidmanic.consoletools.drawing.AsciiBorder;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
@@ -5,6 +6,7 @@ import com.acidmanic.consoletools.rendering.componentfeatures.Renderable;
 import com.acidmanic.consoletools.table.Table;
 import com.acidmanic.consoletools.table.TableRenderable;
 import com.acidmanic.consoletools.table.builders.TableBuilder;
+import controllers.AmministratoreController;
 import dao.AmministratorDao;
 import dao.dbInteraction.ConnectionSIngleton;
 import dao.dbInteraction.PermessiEnum;
@@ -25,7 +27,9 @@ public class TestStoredProceduresAmministratore extends AmministratoreGraphicalC
     @Test
     public void printCandidates() throws SQLException {
         ConnectionSIngleton.changePermissionLevel(PermessiEnum.AMMINISTRATORE);
-        AmministratorDao dao=new AmministratorDao();
-        System.out.println(dao.listaCandidatiPerCapoProgetto(new ProgettoBean("Bomboclat","","","","")).get(1).getName());
+        AmministratoreController con=new AmministratoreController();
+        CandidatiCapoProgettoBean[] s=con.getCandidati(new ProgettoBean("Operazione fenice","","","",""));
+        System.out.println(s[1].getName());
+
     }
 }

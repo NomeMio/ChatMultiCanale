@@ -15,6 +15,8 @@ public class StaticNames {
     static String nomeLavoratore="nomeL";
     static String cognomeLavoratore="cognomeL";
     static String cfLavoratore="cfL";
+    static String cfAmministratore="cfA";
+
 
 }
 

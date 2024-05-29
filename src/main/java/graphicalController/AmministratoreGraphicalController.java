@@ -11,6 +11,7 @@ import controllers.SessionManager;
 import utils.PrinterCostum;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class AmministratoreGraphicalController implements Runnable {
 
@@ -89,12 +90,42 @@ public class AmministratoreGraphicalController implements Runnable {
         }
         PrinterCostum.clearConsole(0);
         CandidatiCapoProgettoBean[] candidati;
+        ProgettoBean progettoScelto=progetti[scelta-1];
         try {
-            candidati = controller.getCandidati(progetti[scelta]);
+            candidati = controller.getCandidati(progettoScelto);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         TablePrinter.candidatiPrinter(candidati);
+        dim = candidati.length;
+        while (true) {
+            scelta = -1;
+            System.out.println("Inserire l'indice del lavoratore che si vuole scegliere:");
+            scelta = Integer.parseInt(PrinterCostum.getString());
+            if (scelta > dim || scelta <= 0) continue;
+            else break;
+        }
+        CandidatiCapoProgettoBean candidatoScelto=candidati[scelta-1];
+        while(true){
+            System.out.println("Confermare "+candidatoScelto.getName()+" "+candidatoScelto.getCognome()+" come capo progetto di "+progettoScelto.getNome()+" ?[si/no]");
+            String risposta = PrinterCostum.getString();
+            if(Objects.equals(risposta, "si")){
+
+                try {
+                    controller.assegnaCapoProgetto(progettoScelto,candidatoScelto);
+                } catch (DbProblemEception e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                System.out.println("Capo inserito con successo");
+                PrinterCostum.clearConsole(1);
+                return;
+            }else if(Objects.equals(risposta, "no")){
+                    PrinterCostum.clearConsole(0);
+                    return;
+            }
+        }
+
 
     }
 

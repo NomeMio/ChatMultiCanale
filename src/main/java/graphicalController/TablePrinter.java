@@ -36,6 +36,7 @@ public class TablePrinter {
         numeroProgetti[0]="Numero progetti gestiti";
         for(int i=0;i<dim-1;i++){
             indice[i+1]=String.valueOf(i+1);
+            System.out.println(candidati[i].getName());
             nomiL[i+1]=candidati[i].getName();
             cognomeL[i+1]=candidati[i].getCognome();
             cfL[i+1]=candidati[i].getCf();

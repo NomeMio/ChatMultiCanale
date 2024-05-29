@@ -7,12 +7,15 @@ import dao.AmministratorDao;
 import enge.AmministratoreSingleton;
 import models.Amministratore;
 import models.CandidatoCapoProgetto;
+import models.Lavoratore;
 import models.Progetto;
 import utils.CostumLogger;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class AmministratoreController {
         public String getAmCf(){
@@ -63,8 +66,24 @@ public class AmministratoreController {
         while(it.hasNext()){
             CandidatoCapoProgetto candidato=it.next();
             beans[contatore]=new CandidatiCapoProgettoBean(candidato.getCf(),candidato.getName(),candidato.getCognome(),candidato.getNumeroDiProgettiInCuiECapo());
+            contatore++;
         }
         return beans;
+    }
+
+    public void assegnaCapoProgetto(ProgettoBean pBean,CandidatiCapoProgettoBean cBean) throws DbProblemEception {
+            Progetto progetto=new Progetto(pBean.getNome(), Date.valueOf(pBean.getData()));
+            Lavoratore lav=new Lavoratore(cBean.getCf(),cBean.getName(),cBean.getCognome() );
+            AmministratorDao dao=new AmministratorDao();
+        assert AmministratoreSingleton.getAmministrator() != null;
+        try {
+            dao.impostaNuovoCapoProgetto(progetto,lav,AmministratoreSingleton.getAmministrator());
+        } catch (SQLException e) {
+            if(Objects.equals(e.getSQLState(), "45001"))System.out.println(e.getSQLState());
+            else CostumLogger.getInstance().logError(e);
+            throw new DbProblemEception();
+        }
+
     }
 
 

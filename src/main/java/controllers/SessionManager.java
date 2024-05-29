@@ -14,7 +14,7 @@ import models.Utente;
 import utils.CostumLogger;
 import utils.Ruoli;
 
-import javax.management.relation.Role;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SessionManager {
@@ -32,10 +32,19 @@ public class SessionManager {
             ConnectionSIngleton.changePermissionLevel(PermessiEnum.AMMINISTRATORE);
         } else if (utente instanceof Lavoratore e) {
             LavoratoreSIngleton.createSingleton(e);
+            ConnectionSIngleton.changePermissionLevel(PermessiEnum.LAVORATORE);
         }
         return new UserBean(utente.getNome(), utente.getCognome(), utente.getEmail(), utente instanceof Amministratore ? Ruoli.Amministratore : Ruoli.Lavoratore);
     }
 
+    public void changePrmissioneLevel(PermessiEnum e){
+        if(e.equals(PermessiEnum.AMMINISTRATORE))return;
+        try {
+            ConnectionSIngleton.changePermissionLevel(e);
+        } catch (SQLException ex) {
+            CostumLogger.getInstance().logError(ex);
+        }
+    }
     public void logOut() {
         AmministratoreSingleton.deleteSingelton();
         LavoratoreSIngleton.deleteSingelton();

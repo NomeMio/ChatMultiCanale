@@ -29,7 +29,7 @@ public class Progetto {
         this.capoProgetto=capo;
 
     }
-    private Progetto(String name, Date data) {
+    public Progetto(String name, Date data) {
         this.nome = name;
         this.data = data;
         this.capoProgetto=null;

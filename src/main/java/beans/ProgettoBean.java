@@ -14,6 +14,13 @@ public class ProgettoBean {
         this.nomeCapo = nomeCapo;
         this.data = c;
     }
+    public ProgettoBean(String nome,  String data,String cfCapo) {
+        this.nome = nome;
+        this.cfCapo = "";
+        this.cognomeCapo = "";
+        this.nomeCapo = "";
+        this.data = data;
+    }
 
     public String getData() {
         return data;

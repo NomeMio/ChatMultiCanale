@@ -3,6 +3,7 @@ package dao;
 
 import beans.ProgettoBean;
 import dao.dbInteraction.ConnectionSIngleton;
+import models.Amministratore;
 import models.CandidatoCapoProgetto;
 import models.Lavoratore;
 import models.Progetto;
@@ -21,7 +22,6 @@ public class AmministratorDao {
     }
 
     public ArrayList<Progetto> vediProgetti() throws SQLException {
-
         Connection connection = ConnectionSIngleton.getConnessione();
         CallableStatement statement = connection.prepareCall("{call listProgetti()}");
         boolean result=statement.execute();
@@ -72,6 +72,19 @@ public class AmministratorDao {
         return lista;
     }
 
+    public void impostaNuovoCapoProgetto(Progetto progetto, Lavoratore lavoratore, Amministratore am) throws SQLException {
+        Connection connection = ConnectionSIngleton.getConnessione();
+        CallableStatement statement = connection.prepareCall("{call inserisciCapoProgetto(?,?,?)}");
+        statement.setString(StaticNames.cfLavoratore,lavoratore.getCf());
+        statement.setString(StaticNames.cfAmministratore,am.getCf());
+        statement.setString(StaticNames.nomeProgetto, progetto.getNome());
+        boolean result=statement.execute();
+
+        if(result){
+            System.out.println("risultato ottenuto");
+        }
+
+    }
 
 
 
