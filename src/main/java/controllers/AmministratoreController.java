@@ -79,7 +79,7 @@ public class AmministratoreController {
         try {
             dao.impostaNuovoCapoProgetto(progetto,lav,AmministratoreSingleton.getAmministrator());
         } catch (SQLException e) {
-            if(Objects.equals(e.getSQLState(), "45001"))System.out.println(e.getSQLState());
+            if(Objects.equals(e.getSQLState(), "45001"))throw new DbProblemEception(e.getMessage());
             else CostumLogger.getInstance().logError(e);
             throw new DbProblemEception();
         }

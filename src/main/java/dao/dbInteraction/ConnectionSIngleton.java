@@ -24,6 +24,8 @@ public class ConnectionSIngleton {
                 pass=System.getenv(EnvCostants.AMMINISTRATORE_PASSWORD);
                 break;
             case LAVORATORE:
+                user=System.getenv(EnvCostants.LAVORATORE_USER);
+                pass=System.getenv(EnvCostants.LAVORATORE_PASSWORD);
                 break;
             case CAPOPROGETTO:
                 break;

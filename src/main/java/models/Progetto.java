@@ -23,7 +23,7 @@ public class Progetto {
         return capoProgetto;
     }
 
-    private Progetto(String name, Date data, Lavoratore capo) {
+    public Progetto(String name, Date data, Lavoratore capo) {
         this.nome = name;
         this.data = data;
         this.capoProgetto=capo;

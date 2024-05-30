@@ -16,7 +16,7 @@ public class ProgettoBean {
     }
     public ProgettoBean(String nome,  String data,String cfCapo) {
         this.nome = nome;
-        this.cfCapo = "";
+        this.cfCapo = cfCapo;
         this.cognomeCapo = "";
         this.nomeCapo = "";
         this.data = data;

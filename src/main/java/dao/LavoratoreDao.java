@@ -1,6 +1,8 @@
 package dao;
 
 import dao.dbInteraction.ConnectionSIngleton;
+import models.Canale;
+import models.CanaliTypes;
 import models.Lavoratore;
 import models.Progetto;
 
@@ -32,6 +34,25 @@ public class LavoratoreDao {
             return progetti;
         }
 
+        return null;
+
+    }
+
+    public ArrayList<Canale> listaCanali(Progetto progetto,String cfL) throws SQLException {
+        Connection connection = ConnectionSIngleton.getConnessione();
+        CallableStatement statement = connection.prepareCall("{call listaCanaliLavoratore(?,?)}");
+        statement.setString(StaticNames.nomeProgetto, progetto.getNome());
+        statement.setString(StaticNames.cfLavoratore,cfL);
+        boolean result=statement.execute();
+        if(result){
+            ArrayList<Canale> canali=new ArrayList<>();
+            ResultSet resultSet=statement.getResultSet();
+            while (resultSet.next()){
+                Canale canale=new Canale(resultSet.getString(StaticNames.nomeCanale),resultSet.getString(StaticNames.nomeProgetto), CanaliTypes.valueOf(resultSet.getString(StaticNames.tipoCanale)),resultSet.getDate(StaticNames.dataProgetto));
+                canali.add(canale);
+            }
+            return canali;
+        }
         return null;
 
     }
