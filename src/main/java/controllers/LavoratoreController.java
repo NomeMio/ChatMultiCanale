@@ -48,6 +48,7 @@ public class LavoratoreController {
         try {
             canali = dao.listaCanali(new Progetto(bean.getNome(), Date.valueOf(bean.getData()),new Lavoratore(bean.getCfCapo(), "","")),LavoratoreSIngleton.getLavoratore().getCf());
         } catch (SQLException e) {
+            CostumLogger.getInstance().logError(e);
             throw new DbProblemEception();
         }
         return convertCanaliListToArray(canali);

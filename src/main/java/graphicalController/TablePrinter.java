@@ -124,9 +124,9 @@ public class TablePrinter {
             nomiCa[i+1]=beans[i].getNome();
             dataCa[i+1]=beans[i].getData();
             tipo[i+1]= beans[i].getTipo();
-            partecipazione[i]=beans[i].isPartecipazione()?"si":"no";
+            partecipazione[i+1]=beans[i].isPartecipazione()?"si":"no";
         }
-        if(conPartecipazioen)return new String[][]{indice,nomiCa,dataCa};
+        if(!conPartecipazioen)return new String[][]{indice,nomiCa,dataCa};
         return new String[][]{indice,nomiCa,dataCa,partecipazione};
     }
 }

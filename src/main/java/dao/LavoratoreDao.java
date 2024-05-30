@@ -48,7 +48,7 @@ public class LavoratoreDao {
             ArrayList<Canale> canali=new ArrayList<>();
             ResultSet resultSet=statement.getResultSet();
             while (resultSet.next()){
-                Canale canale=new Canale(resultSet.getString(StaticNames.nomeCanale),resultSet.getString(StaticNames.nomeProgetto), CanaliTypes.valueOf(resultSet.getString(StaticNames.tipoCanale)),resultSet.getDate(StaticNames.dataProgetto));
+                Canale canale=new Canale(resultSet.getString(StaticNames.nomeCanale),progetto.getNome(), CanaliTypes.valueOf(resultSet.getString(StaticNames.tipoCanale)),resultSet.getDate(StaticNames.dataCanale));
                 canali.add(canale);
             }
             return canali;

@@ -32,7 +32,7 @@ public class Progetto {
     public Progetto(String name, Date data) {
         this.nome = name;
         this.data = data;
-        this.capoProgetto=null;
+        this.capoProgetto=new Lavoratore("","","");
 
     }
 

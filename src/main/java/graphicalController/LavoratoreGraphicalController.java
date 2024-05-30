@@ -22,6 +22,11 @@ public class LavoratoreGraphicalController implements Runnable{
                 return;
             }
             int dim= beansProgetti.length;
+            if(dim==0){
+                System.out.println("Non partecipi a nessun progetto");
+                PrinterCostum.clearConsole(2);
+                return;
+            }
             TablePrinter.progettiLavoratoriPrinter(beansProgetti, LavoratoreSIngleton.getLavoratore().getCf());
             int scelta;
             while(true){
@@ -32,7 +37,6 @@ public class LavoratoreGraphicalController implements Runnable{
                 break;
             }
             progettoGuiSelector(beansProgetti[scelta-1]);
-            return;
         }
     }
 
@@ -56,6 +60,11 @@ public class LavoratoreGraphicalController implements Runnable{
                 return;
             }
             int dim=canali.length;
+            if(dim==0){
+                System.out.println("Non partecipi a nessun Canale");
+                PrinterCostum.clearConsole(2);
+                return;
+            }
             TablePrinter.canaliPrinter(canali);
             int scelta;
             while(true){
