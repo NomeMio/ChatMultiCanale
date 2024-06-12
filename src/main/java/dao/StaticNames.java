@@ -19,6 +19,13 @@ public class StaticNames {
     static String nomeCanale="nomeCa";
     static String tipoCanale="tipoCa";
     static String dataCanale="dataCa";
+    static String quantitaM="quantita";
+    static String emailLavoratore="emailL";
+    static String testoMessaggio="testoM";
+    static String idMessaggio="idM";
+    static String timeMessaggio="timeM";
+    static String isMessaggioPrecedente="idMP";
+    static String idUltimoMessaggioLetto="idPrimoMessaggio";
 
 }
 

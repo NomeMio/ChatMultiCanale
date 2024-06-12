@@ -3,8 +3,13 @@ package graphicalController;
 import Exceptions.TabellaFormattataMaleException;
 import beans.CanaleBean;
 import beans.CandidatiCapoProgettoBean;
+import beans.MessaggioBean;
 import beans.ProgettoBean;
+import com.acidmanic.consoletools.drawing.AsciiBorders;
+import com.acidmanic.consoletools.table.Table;
+import com.acidmanic.consoletools.table.builders.TableBuilder;
 import utils.PrinterCostum;
+import utils.textArt.BordersAsciTableNEw;
 
 import java.util.Objects;
 
@@ -109,6 +114,32 @@ public class TablePrinter {
         }
     }
 
+    public static void messaggiPrinter(MessaggioBean[] messaggioBeans){
+        int i=1;
+        for(MessaggioBean messaggio:messaggioBeans){
+                TableBuilder table = new TableBuilder().tableBorder(AsciiBorders.SOLID).cell(
+                        (TableBuilder builder) -> builder.cell("Autore : "+messaggio.getNomeAutore()+" "+messaggio.getCognomeAutore())
+                                .cell("Id messaggio: " + messaggio.getIdMess()).padding(3, 0)
+                                .cell( messaggio.getTimestamp()).padding(3, 0)
+                                .tableBorder(BordersAsciTableNEw.ONLYBOTREAL)
+                ).row().cell("Teso")
+                        .row().cell(messaggio.getTesto());
+                if(messaggio.getCitato()!=null){
+                    table.row().cell(
+                            (TableBuilder risposta)-> risposta.tableBorder(AsciiBorders.SOLID).cell("Messaggio citato").row().cell(
+                                    (TableBuilder builder) -> builder.cell("Autore : "+messaggio.getCitato().getNomeAutore()+" "+messaggio.getCitato().getCognomeAutore())
+                                            .cell("Id messaggio: " + messaggio.getCitato().getIdMess()).padding(3, 0)
+                                            .cell( messaggio.getCitato().getTimestamp()).padding(3, 0)
+                                            .tableBorder(BordersAsciTableNEw.ONLYBOTREAL)
+                            ).row().cell("Teso")
+                            .row().cell(messaggio.getCitato().getTesto()));
+                }
+                System.out.println((i++ )+")");
+                System.out.println(table.build().render());
+
+        }
+    }
+
     private static String[][] convertiToMatricCanali(CanaleBean[] beans, boolean conPartecipazioen){
         int dim=beans.length+1;
         String[] nomiCa,dataCa,tipo,indice,partecipazione;
@@ -129,4 +160,6 @@ public class TablePrinter {
         if(!conPartecipazioen)return new String[][]{indice,nomiCa,dataCa};
         return new String[][]{indice,nomiCa,dataCa,partecipazione};
     }
+
+
 }

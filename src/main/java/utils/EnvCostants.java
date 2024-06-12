@@ -8,4 +8,5 @@ public class EnvCostants {
     public static String AMMINISTRATORE_PASSWORD="chatMulticanaleAmministratorePassword";
     public static String LAVORATORE_USER="chatMulticanaleLavoratore";
     public static String LAVORATORE_PASSWORD="chatMulticanaleLavoratorePassword";
+    public static int MESSAGE_FOR_PAGE=3;
 }

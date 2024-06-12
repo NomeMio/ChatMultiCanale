@@ -39,6 +39,22 @@ public class PrinterCostum {
         }
     }
 
+
+    public static int  getSceltaInRange(int m,int M){
+        int scelta=-1;
+
+        do{
+        System.out.println("Scelta:");
+       try{
+           scelta= Integer.parseInt(getString());
+       }catch (NumberFormatException e){
+                scelta=m-1;
+       }
+
+        }while (scelta<m || scelta >M);
+        return scelta;
+    }
+
     public static String getString() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String s = "";

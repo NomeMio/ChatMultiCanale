@@ -1,10 +1,10 @@
 package dao;
 
 import dao.dbInteraction.ConnectionSIngleton;
-import models.Canale;
-import models.CanaliTypes;
-import models.Lavoratore;
-import models.Progetto;
+import dao.dbInteraction.PermessiEnum;
+import models.*;
+import utils.CostumLogger;
+import utils.EnvCostants;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -38,9 +38,9 @@ public class LavoratoreDao {
 
     }
 
-    public ArrayList<Canale> listaCanali(Progetto progetto,String cfL) throws SQLException {
+    public ArrayList<Canale> listaCanaliPublici(Progetto progetto,String cfL) throws SQLException {
         Connection connection = ConnectionSIngleton.getConnessione();
-        CallableStatement statement = connection.prepareCall("{call listaCanaliLavoratore(?,?)}");
+        CallableStatement statement = connection.prepareCall("{call listaCanaliPubliciLavoratore(?,?)}");
         statement.setString(StaticNames.nomeProgetto, progetto.getNome());
         statement.setString(StaticNames.cfLavoratore,cfL);
         boolean result=statement.execute();
@@ -55,5 +55,63 @@ public class LavoratoreDao {
         }
         return null;
 
+    }
+
+    public ArrayList<Messaggio> leggiMessaggi(Canale canale) throws SQLException {
+        org.mariadb.jdbc.Connection connection=ConnectionSIngleton.getConnessione();
+        ArrayList<Messaggio> messaggi=new ArrayList<>();
+        CallableStatement s=connection.prepareCall("{call letturaUltimiMessaggiCanale(?,?,?)}");
+        s.setInt(StaticNames.quantitaM, EnvCostants.MESSAGE_FOR_PAGE);
+        s.setString(StaticNames.nomeProgetto,canale.getProgetto());
+        s.setString(StaticNames.nomeCanale, canale.getNome());
+        boolean result=s.execute();
+        ResultSet ses=s.getResultSet();
+        while(result) {
+            if(ses.next()){
+                Lavoratore autore=new Lavoratore(ses.getString(StaticNames.cfLavoratore),ses.getString(StaticNames.nomeLavoratore),ses.getString(StaticNames.cognomeLavoratore),ses.getString(StaticNames.emailLavoratore));
+                Messaggio mess=new Messaggio(ses.getInt(StaticNames.idMessaggio),ses.getInt(StaticNames.isMessaggioPrecedente),autore,ses.getString(StaticNames.testoMessaggio),ses.getTimestamp(StaticNames.timeMessaggio),canale);
+                if(ses.next()){
+                    Lavoratore autoreCitato=new Lavoratore(ses.getString(StaticNames.cfLavoratore),ses.getString(StaticNames.nomeLavoratore),ses.getString(StaticNames.cognomeLavoratore),ses.getString(StaticNames.emailLavoratore));
+                    Messaggio messCItato=new Messaggio(ses.getInt(StaticNames.idMessaggio),ses.getInt(StaticNames.isMessaggioPrecedente),autoreCitato,ses.getString(StaticNames.testoMessaggio),ses.getTimestamp(StaticNames.timeMessaggio),canale);
+                    mess.setCitato(messCItato);
+                }
+                messaggi.add(mess);
+            }else {
+                return messaggi;
+            }
+            result=s.getMoreResults();
+            ses.close();
+            ses=s.getResultSet();
+        }
+        return messaggi;
+    }
+    public ArrayList<Messaggio> leggiMessaggiPrecedenti(int ultimoMEssaggioLetto) throws SQLException {
+        org.mariadb.jdbc.Connection connection=ConnectionSIngleton.getConnessione();
+        ArrayList<Messaggio> messaggi=new ArrayList<>();
+        CallableStatement s=connection.prepareCall("{call letturaMessaggiPrecedenti(?,?)}");
+        s.setInt(StaticNames.quantitaM, EnvCostants.MESSAGE_FOR_PAGE);
+        s.setInt(StaticNames.idUltimoMessaggioLetto, ultimoMEssaggioLetto);
+        boolean result=s.execute();
+        ResultSet ses=s.getResultSet();
+        while(result) {
+            if(ses.next()){
+                Lavoratore autore=new Lavoratore(ses.getString(StaticNames.cfLavoratore),ses.getString(StaticNames.nomeLavoratore),ses.getString(StaticNames.cognomeLavoratore),ses.getString(StaticNames.emailLavoratore));
+                Canale canale=new Canale(ses.getString(StaticNames.nomeCanale),ses.getString(StaticNames.nomeProgetto));
+                Messaggio mess=new Messaggio(ses.getInt(StaticNames.idMessaggio),ses.getInt(StaticNames.isMessaggioPrecedente),autore,ses.getString(StaticNames.testoMessaggio),ses.getTimestamp(StaticNames.timeMessaggio),canale);
+                if(ses.next()){
+                    Lavoratore autoreCitato=new Lavoratore(ses.getString(StaticNames.cfLavoratore),ses.getString(StaticNames.nomeLavoratore),ses.getString(StaticNames.cognomeLavoratore),ses.getString(StaticNames.emailLavoratore));
+                    canale=new Canale(ses.getString(StaticNames.nomeCanale),ses.getString(StaticNames.nomeProgetto));
+                    Messaggio messCItato=new Messaggio(ses.getInt(StaticNames.idMessaggio),ses.getInt(StaticNames.isMessaggioPrecedente),autoreCitato,ses.getString(StaticNames.testoMessaggio),ses.getTimestamp(StaticNames.timeMessaggio),canale);
+                    mess.setCitato(messCItato);
+                }
+                messaggi.add(mess);
+            }else {
+                return messaggi;
+            }
+            result=s.getMoreResults();
+            ses.close();
+            ses=s.getResultSet();
+        }
+        return messaggi;
     }
 }

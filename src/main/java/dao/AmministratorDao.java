@@ -32,8 +32,11 @@ public class AmministratorDao {
                 Lavoratore lav=reslutSet.getString(StaticNames.cfCapo)==null?new Lavoratore("","",""): new Lavoratore(reslutSet.getString(StaticNames.cfCapo),reslutSet.getString(StaticNames.nomeCapo),reslutSet.getString(StaticNames.cognomeCapo));
                 progetti.add(Progetto.getProgetto(reslutSet.getString(StaticNames.nomeProgetto),reslutSet.getDate(StaticNames.dataProgetto),lav));
             }
+            reslutSet.close();
+            statement.close();
             return progetti;
         }else{
+            statement.close();
             return new ArrayList<>();
         }
 

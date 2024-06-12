@@ -42,4 +42,11 @@ public class Canale {
         this.tipo = tipo;
         this.dataCreazione = dataCreazione;
     }
+    public Canale(String nome,String progetto){this.nome = nome;
+        this.nome = nome;
+        this.progetto = progetto;
+        this.tipo = null;
+        this.dataCreazione = null;
+
+    }
 }
