@@ -36,7 +36,7 @@ public class TestStoredProceduresLavoratore {
     @Test
     public void testDaoMessaggi() throws SQLException {
         ConnectionSIngleton.changePermissionLevel(PermessiEnum.LAVORATORE);
-        LavoratoreDao dao=new LavoratoreDao();
+        LavoratoreDao dao=LavoratoreDao.getDao();
         ArrayList<Messaggio> messaggi=dao.leggiMessaggi(new Canale("test","progetto1"));
         System.out.println(messaggi.get(0).getTesto());
     }

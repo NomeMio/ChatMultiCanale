@@ -1,14 +1,13 @@
 package controllers;
 
 import Exceptions.DbProblemEception;
-import beans.CanaleBean;
-import beans.MessaggioBean;
-import beans.ProgettoBean;
+import beans.*;
 import dao.LavoratoreDao;
 import enge.AmministratoreSingleton;
 import enge.LavoratoreSIngleton;
 import models.*;
 import utils.CostumLogger;
+import utils.Ruoli;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class LavoratoreController {
     }
 
     public ProgettoBean[] getProgetti() throws DbProblemEception {
-        LavoratoreDao dao=new LavoratoreDao();
+        LavoratoreDao dao=LavoratoreDao.getDao();
         assert LavoratoreSIngleton.getLavoratore() != null;
         ArrayList<Progetto> progetti=null;
         try {
@@ -42,7 +41,7 @@ public class LavoratoreController {
         return beans;
     }
     public CanaleBean[] getCanaliPubliciLavoratore(ProgettoBean bean) throws DbProblemEception {
-        LavoratoreDao dao=new LavoratoreDao();
+        LavoratoreDao dao=LavoratoreDao.getDao();
         ArrayList<Canale> canali;
         try {
             canali = dao.listaCanaliPublici(new Progetto(bean.getNome(), Date.valueOf(bean.getData()),new Lavoratore(bean.getCfCapo(), "","")),LavoratoreSIngleton.getLavoratore().getCf());
@@ -65,7 +64,7 @@ public class LavoratoreController {
     }
 
     public MessaggioBean[] getMessaggi(CanaleBean canale) throws DbProblemEception {
-            LavoratoreDao dao=new LavoratoreDao();
+            LavoratoreDao dao=LavoratoreDao.getDao();
         try {
             return convertiMessaggiToBeanArray(dao.leggiMessaggi(new Canale(canale.getNome(), canale.getProgetto())));
         } catch (SQLException e) {
@@ -78,7 +77,7 @@ public class LavoratoreController {
     }
 
     public MessaggioBean[] getMessaggiPrecedenti(int idUltimoLetto) throws DbProblemEception {
-        LavoratoreDao dao=new LavoratoreDao();
+        LavoratoreDao dao=LavoratoreDao.getDao();
         try {
             return convertiMessaggiToBeanArray(dao.leggiMessaggiPrecedenti(idUltimoLetto));
         } catch (SQLException e) {
@@ -108,4 +107,30 @@ public class LavoratoreController {
     private MessaggioBean convertiMessaggiotoBean(Messaggio messaggio){
         return new MessaggioBean(messaggio.getTesto(),messaggio.getAutore().getEmail(),messaggio.getAutore().getNome(),messaggio.getAutore().getCognome(),messaggio.getData().toString(),messaggio.getNameCanale(),messaggio.getNameProgetto(),messaggio.getId(), messaggio.getPrecedente());
     }
+
+    public CanalePrivatoBean[] getCanaliPrivati(CanaleBean canaleOrigine, String cf) throws DbProblemEception {
+        LavoratoreDao dao=LavoratoreDao.getDao();
+        ArrayList<CanalePrivato> cannali;
+        try {
+            cannali = dao.listaCanaliPrivati(new Canale(canaleOrigine.getNome(), canaleOrigine.getProgetto()),cf);
+        } catch (SQLException e) {
+            throw new DbProblemEception(e.getMessage());
+        }
+        CanalePrivatoBean[] beans=new CanalePrivatoBean[cannali.size()];
+        int contatore=0;
+        for(CanalePrivato canale:cannali){
+                MessaggioBean messaggio=convertiMessaggiotoBean(canale.getMessaggioInizializzante());
+                UserBean[] utenti=new UserBean[]{convertiLavoratoreToBean(canale.getLavoratori()[0]),convertiLavoratoreToBean(canale.getLavoratori()[1])};
+                beans[contatore]=new CanalePrivatoBean(canale.getNome(),canale.getProgetto(),canale.getDataCreazione().toString(), canale.getTypeToString(),messaggio,utenti);
+                contatore++;
+        }
+        return beans;
+
+
+    }
+
+    private UserBean convertiLavoratoreToBean(Lavoratore lav){
+        return new UserBean(lav.getNome(),lav.getCognome(),lav.getEmail(), Ruoli.Lavoratore);
+    }
+
 }

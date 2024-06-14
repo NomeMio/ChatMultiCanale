@@ -26,6 +26,21 @@ public class StaticNames {
     static String timeMessaggio="timeM";
     static String isMessaggioPrecedente="idMP";
     static String idUltimoMessaggioLetto="idPrimoMessaggio";
+    static String emailLavoratoreRisposta="emailLR";
+    static String testoMessaggioRisposta="testoMR";
+    static String idMessaggioRisposta="idMR";
+    static String timeMessaggioRispotsa="timeMR";
+    static String isMessaggioPrecedenteRisposta="idMPR";
+    static String idUltimoMessaggioLettoRisposta="idPrimoMessaggioR";
+    static String nomeLavoratoreRisposta="nomeLR";
+    static String cognomeLavoratoreRisposta="cognomeLR";
+    static String cfLavoratoreRisposta="cfLR";
+    static String nomeLavoratoreAltro="nomeL2";
+    static String cognomeLavoratoreAltro="cognomeL2";
+    static String cfLavoratoreAltro="cfL2";
+    static String emailLavoratoreAltro="emailL2";
+    static String nomeCanaleOrigine="nomeCaO";
+    static String nomeProgettoOrigine="nomePO";
 
 }
 
