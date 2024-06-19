@@ -4,17 +4,17 @@ public class MessaggioBean {
     private MessaggioBean citato;
     private String testo;
 
-    public MessaggioBean(MessaggioBean citato, String testo, String emialAutore, String nomeAutore, String cognomeAutore, String timestamp, String nomeCanale, String nomeProgetto, int idMess, int idPrecedente) {
-        this.citato = citato;
+    public MessaggioBean(String testo,String nomeCanale, String nomeProgetto) {
+        this.citato = null;
         this.testo = testo;
-        this.emialAutore = emialAutore;
-        this.nomeAutore = nomeAutore;
-        this.cognomeAutore = cognomeAutore;
-        this.timestamp = timestamp;
+        this.emialAutore = null;
+        this.nomeAutore = null;
+        this.cognomeAutore = null;
+        this.timestamp = null;
         this.nomeCanale = nomeCanale;
         this.nomeProgetto = nomeProgetto;
-        this.idMess = idMess;
-        this.idPrecedente = idPrecedente;
+        this.idMess = 0;
+        this.idPrecedente = 0;
     }
 
     public MessaggioBean getCitato() {

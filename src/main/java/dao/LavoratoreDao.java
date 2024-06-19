@@ -1,5 +1,6 @@
 package dao;
 
+import Exceptions.DbProblemEception;
 import dao.dbInteraction.ConnectionSIngleton;
 import models.*;
 import utils.EnvCostants;
@@ -130,4 +131,17 @@ public class LavoratoreDao {
         s.setInt(StaticNames.idUltimoMessaggioLetto, ultimoMEssaggioLetto);
         return fetchMessagi(s);
     }
+
+    public void inserisciMessaggio(Messaggio messaggio,int messagioRispostas) throws SQLException, DbProblemEception {
+        org.mariadb.jdbc.Connection connection = ConnectionSIngleton.getConnessione();
+        CallableStatement s = connection.prepareCall("{call inserisciMessaggio(?,?,?,?,?)}");
+        s.setString(StaticNames.cfLavoratore,messaggio.getAutore().getCf());
+        s.setString(StaticNames.nomeCanale,messaggio.getNameCanale());
+        s.setString(StaticNames.nomeProgetto,messaggio.getNameProgetto());
+        s.setString(StaticNames.testoMessaggio,messaggio.getTesto());
+        s.setInt(StaticNames.idMessaggioRisposta,messagioRispostas);
+        s.execute();//TODO MAYBE need to be checked
+    }
+
+
 }

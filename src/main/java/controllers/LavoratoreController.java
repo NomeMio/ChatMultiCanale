@@ -7,6 +7,7 @@ import enge.AmministratoreSingleton;
 import enge.LavoratoreSIngleton;
 import models.*;
 import utils.CostumLogger;
+import utils.PrinterCostum;
 import utils.Ruoli;
 
 import java.sql.Date;
@@ -128,6 +129,33 @@ public class LavoratoreController {
 
 
     }
+
+    public void inserisciMessaggio(MessaggioBean messaggioBean,MessaggioBean messaggioPerRisposta) throws DbProblemEception {
+            Lavoratore lavoratore=LavoratoreSIngleton.getLavoratore();
+            Messaggio messaggio=new Messaggio(lavoratore,messaggioBean.getTesto(),new Canale(messaggioBean.getNomeCanale(),messaggioBean.getNomeProgetto()));
+            LavoratoreDao dao=LavoratoreDao.getDao();
+        try {
+            dao.inserisciMessaggio(messaggio,messaggioPerRisposta.getIdMess());
+        } catch (SQLException e) {
+            if(e.getSQLState()=="45001")throw new DbProblemEception(e.getMessage());
+            throw new DbProblemEception(e.getMessage());
+        }
+    }
+
+    public void inserisciMessaggio(MessaggioBean messaggioBean) throws DbProblemEception {
+        Lavoratore lavoratore=LavoratoreSIngleton.getLavoratore();
+        Messaggio messaggio=new Messaggio(lavoratore,messaggioBean.getTesto(),new Canale(messaggioBean.getNomeCanale(),messaggioBean.getNomeProgetto()));
+        LavoratoreDao dao=LavoratoreDao.getDao();
+        try {
+            dao.inserisciMessaggio(messaggio,0);
+        } catch (SQLException e) {
+            if(e.getSQLState()=="45001")throw new DbProblemEception(e.getMessage());
+            throw new DbProblemEception(e.getMessage());
+        }
+    }
+
+
+
 
     private UserBean convertiLavoratoreToBean(Lavoratore lav){
         return new UserBean(lav.getNome(),lav.getCognome(),lav.getEmail(), Ruoli.Lavoratore);

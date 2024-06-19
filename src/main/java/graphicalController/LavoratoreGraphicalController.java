@@ -89,6 +89,27 @@ public class LavoratoreGraphicalController implements Runnable{
         }
     }
 
+    private void inserisciMessaggioMenu(CanaleBean canale,MessaggioBean messaggioRisposta){
+        PrinterCostum.clearConsole(0);
+        System.out.println("Inserisci il messaggio da inserire: ");
+        String testo=PrinterCostum.getString();
+        LavoratoreController controller=new LavoratoreController();
+        try {
+            if(messaggioRisposta==null) {
+                controller.inserisciMessaggio(new MessaggioBean(testo, canale.getNome(), canale.getProgetto()));
+            }else{
+                controller.inserisciMessaggio(new MessaggioBean(testo, canale.getNome(), canale.getProgetto()),messaggioRisposta);
+            }
+        } catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Messaggio inserito con successo");
+        PrinterCostum.clearConsole(1);
+        return;
+
+    }
+
     private void renderCanaliPrivatiLavoratore(CanaleBean canaleBean)   {
         PrinterCostum.clearConsole(0);
         assert LavoratoreSIngleton.getLavoratore() != null;
@@ -115,6 +136,7 @@ public class LavoratoreGraphicalController implements Runnable{
                 case 1:
                     renderMenuMessaggi(scleto);
                 case 2:
+                    inserisciMessaggioMenu(scleto,null);
                     break;
                 case 3:
                     PrinterCostum.clearConsole(0);
@@ -143,6 +165,7 @@ public class LavoratoreGraphicalController implements Runnable{
                         renderCanaliPrivatiLavoratore(canaleBean);
                         break;
                     case 3:
+                        inserisciMessaggioMenu(canaleBean,null);
                         break;
                     case 4:
                         PrinterCostum.clearConsole(0);
@@ -180,7 +203,7 @@ public class LavoratoreGraphicalController implements Runnable{
                 PrinterCostum.clearConsole(2);
                 return;
             }
-            PrinterCostum.clearConsole(0);
+            PrinterCostum.clearConsole(1);
             TablePrinter.messaggiPrinter(messaggi);
             System.out.println(table.render());
             int scelta=PrinterCostum.getSceltaInRange(1,3);
@@ -197,6 +220,14 @@ public class LavoratoreGraphicalController implements Runnable{
                     if(Objects.equals(canaleBean.getTipo(), "privato")){
                         System.out.println("non puoi rispondere a messaggi di canali privati");
                         continue;
+                    }
+                    renderRispostaMenu(canaleBean,messaggi);
+                    try {
+                        messaggi=leggiPrimiMessaggi(canaleBean);
+                    } catch (DbProblemEception e) {
+                        System.out.println(e.getMessage());
+                        PrinterCostum.clearConsole(1);
+                        return;
                     }
                     break;
                 case 3:
@@ -219,6 +250,39 @@ public class LavoratoreGraphicalController implements Runnable{
             return controller.getMessaggi(bean);
 
     }
+
+    private void renderRispostaMenu(CanaleBean canale,MessaggioBean[] messaggioBeans){
+        System.out.println("Scegliere uno dei messaggi presenti nel elenco precedente:");
+        int scelta=PrinterCostum.getSceltaInRange(1,messaggioBeans.length);
+        MessaggioBean messaggioScelto=messaggioBeans[scelta-1];
+
+        Table table = new TableBuilder()
+                .tableBorder(AsciiBorders.DOUBLELINE)
+                .cell((TableBuilder builder) -> builder
+                        .row().cell("Opearzioni Disponibili:")
+                        .row().cell("   1. Rispondi publicamente con un messaggio")
+                        .row().cell("   2. Crea un canale Privato per questo messaggio")
+                        .row().cell("   3. Esci")
+
+
+                ).border()
+                .build();
+        System.out.println(table.render());
+        scelta=PrinterCostum.getSceltaInRange(1,3);
+        switch (scelta){
+            case 1:
+                inserisciMessaggioMenu(canale,messaggioScelto);
+                break;
+            case 2:
+                break;
+            case 3:
+                return;
+            default:
+                return;
+        }
+    }
+
+
     private void renderCanaleMenu(CanaleBean bean){
 
             Table table = new TableBuilder()

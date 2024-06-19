@@ -4,14 +4,14 @@ package models;
 import java.util.Date;
 
 public class Messaggio {
-    public Messaggio(int id,int precedente,Messaggio citato, Lavoratore autore, String testo, Date d, Canale canale) {
-        this.citato = citato;
+    public Messaggio( Lavoratore autore, String testo, Canale canale) {
+        this.citato = null;
         this.autore = autore;
         this.testo = testo;
-        this.data = d;
+        this.data = null ;
         this.canale = canale;
-        this.id=id;
-        this.precedente=precedente;
+        this.id=0;
+        this.precedente=0;
     }
 
     public Messaggio getCitato() {
