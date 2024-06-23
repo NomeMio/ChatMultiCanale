@@ -9,20 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" name="Changes" comment="Iniziata scrittura dei messaggi">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/CapoProgettoController.java" afterDir="false" />
+    <list default="true" id="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" name="Changes" comment="Finale">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f700994c-9a0e-439f-b2a5-fe52170e73c6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f700994c-9a0e-439f-b2a5-fe52170e73c6/storage_v2/_src_/schema/progettoBasi.uQpI_w.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f700994c-9a0e-439f-b2a5-fe52170e73c6/storage_v2/_src_/schema/progettoBasi.uQpI_w.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logFile.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/ChatMultiCanale_jar/exec.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/ChatMultiCanale_jar/logFile.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/beans/CandidatiCanale.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/ChatMultiCanale_jar/ChatMultiCanale.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ChatMultiCanale_jar/ChatMultiCanale.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LavoratoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LavoratoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CapoProgettoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CapoProgettoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LavoratoreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LavoratoreDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/dbInteraction/ConnectionSIngleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/dbInteraction/ConnectionSIngleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/graphicalController/LavoratoreGraphicalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphicalController/LavoratoreGraphicalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/EnvCostants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/EnvCostants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db_conn.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db_conn.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestStoredProceduresLavoratore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestStoredProceduresLavoratore.java" afterDir="false" />
     </list>
-    <list id="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" name="Changes by asedi" comment="psadapfapwfpajfw">
+    <list id="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" name="Changes by asedi" comment="finale">
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/dbInteraction/ConnectionSIngleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/dbInteraction/ConnectionSIngleton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/graphicalController/LavoratoreGraphicalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphicalController/LavoratoreGraphicalController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/graphicalController/TablePrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphicalController/TablePrinter.java" afterDir="false" />
@@ -59,42 +59,6 @@
     &quot;accountId&quot;: &quot;aa4e95ec-5f94-4196-ae9b-d85bd5d7f590&quot;
   }
 }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/dao/dbInteraction/ConnectionSIngleton.java">
-      <ranges>
-        <range start1="14" end1="15" start2="14" end2="15" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="16" end1="16" start2="16" end2="17" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="30" end1="30" start2="31" end2="33" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="51" end1="54" start2="54" end2="58" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/main/java/graphicalController/LavoratoreGraphicalController.java">
-      <ranges>
-        <range start1="3" end1="7" start2="3" end2="4" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="10" end1="10" start2="7" end2="8" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="11" end1="16" start2="9" end2="10" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="17" end1="19" start2="11" end2="11" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="39" end1="40" start2="31" end2="32" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="53" end1="54" start2="45" end2="46" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="61" end1="61" start2="53" end2="69" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="63" end1="64" start2="71" end2="72" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="65" end1="66" start2="73" end2="74" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="67" end1="68" start2="75" end2="76" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="72" end1="76" start2="80" end2="82" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="78" end1="88" start2="84" end2="87" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="114" end1="116" start2="113" end2="114" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="119" end1="120" start2="117" end2="118" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="125" end1="147" start2="123" end2="124" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="150" end1="150" start2="127" end2="155" changelist="b08eed34-74b3-46ce-b8e0-558c46c6cb8f" />
-        <range start1="219" end1="223" start2="224" end2="224" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="244" end1="245" start2="245" end2="246" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="276" end1="276" start2="277" end2="282" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="283" end1="283" start2="289" end2="299" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="322" end1="322" start2="338" end2="484" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-        <range start1="323" end1="324" start2="485" end2="501" changelist="18d525c6-b760-4abb-92f1-2c3ca64f5ddc" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -307,7 +271,7 @@
       <workItem from="1718957335733" duration="4673000" />
       <workItem from="1718963550941" duration="1274000" />
       <workItem from="1718974325905" duration="2585000" />
-      <workItem from="1719062288428" duration="5876000" />
+      <workItem from="1719062288428" duration="6838000" />
     </task>
     <task id="LOCAL-00001" summary="initialization commit">
       <option name="closed" value="true" />
@@ -397,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718811107609</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Finale">
+      <option name="closed" value="true" />
+      <created>1719182451256</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719182451256</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,7 +402,9 @@
     <MESSAGE value="Changes by asedi" />
     <MESSAGE value="Iniziata scrittura dei messaggi" />
     <MESSAGE value="psadapfapwfpajfw" />
-    <option name="LAST_COMMIT_MESSAGE" value="psadapfapwfpajfw" />
+    <MESSAGE value="Finale" />
+    <MESSAGE value="finale" />
+    <option name="LAST_COMMIT_MESSAGE" value="finale" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

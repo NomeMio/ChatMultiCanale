@@ -44,7 +44,6 @@ public class TablePrinter {
         numeroProgetti[0] = "Numero progetti gestiti";
         for (int i = 0; i < dim - 1; i++) {
             indice[i + 1] = String.valueOf(i + 1);
-            System.out.println(candidati[i].getName());
             nomiL[i + 1] = candidati[i].getName();
             cognomeL[i + 1] = candidati[i].getCognome();
             cfL[i + 1] = candidati[i].getCf();
@@ -92,6 +91,7 @@ public class TablePrinter {
 
         }
     }
+
 
     private static String[][] convertiToMatrixProgettiLavoratori(ProgettoBean[] progetti, String cfL) {
         int dim = progetti.length + 1;
@@ -196,5 +196,33 @@ public class TablePrinter {
         return new String[][]{indice, nomiCa, dataCa, partecipazione};
     }
 
+    public static void printerCandidatiCanale(CandidatiCanale[] beans) {
+        try {
+            PrinterCostum.stampaTabella(convertiToMatrixCandidatiCanale(beans));
+        } catch (TabellaFormattataMaleException e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+
+    private static String[][] convertiToMatrixCandidatiCanale(CandidatiCanale[] candidatiCanales) {
+        int dim = candidatiCanales.length + 1;
+        String[] nomi, cognomi, email,indice;
+        nomi = new String[dim];
+        cognomi = new String[dim];
+        email = new String[dim];
+        indice = new String[dim];
+        nomi[0] = "Nome";
+        cognomi[0] = "Cognome";
+        email[0] = "Email";
+        indice[0] = "indice";
+        for (int i = 0; i < dim - 1; i++) {
+            indice[i + 1] = String.valueOf(i + 1);
+            nomi[i + 1] =candidatiCanales[i].nome();
+            cognomi[i + 1] = candidatiCanales[i].cognome();
+            email[i + 1] =candidatiCanales[i].email();
+        }
+        return new String[][]{indice, nomi, cognomi, email};
+    }
 
 }

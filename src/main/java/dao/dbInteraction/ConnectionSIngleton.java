@@ -12,8 +12,9 @@ public class ConnectionSIngleton {
     private static String connection_url;
     private static String user;
     private static String pass;
-
+    private  static PermessiEnum ruolo;
     private  static  void setRole(PermessiEnum ruolo) {
+        ConnectionSIngleton.ruolo=ruolo;
         switch (ruolo) {
             case LOGIN:
                 user = System.getenv(EnvCostants.LOGIN_USER);
@@ -51,9 +52,10 @@ public class ConnectionSIngleton {
         if(istanza==null){
             istanza=new ConnectionSIngleton();
         }
-            setRole(e);
-            istanza.connessione.close();
-            istanza.connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
+        if(ConnectionSIngleton.ruolo==e)return;
+        setRole(e);
+        istanza.connessione.close();
+        istanza.connessione = (Connection) DriverManager.getConnection(connection_url, user, pass);
 
     }
 

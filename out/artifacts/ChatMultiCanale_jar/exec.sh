@@ -1,0 +1,10 @@
+#!/bin/sh
+export chatMulticanaleURL=jdbc:mariadb://localhost:3306/progettoBasi
+export chatMulticanaleLogin=login_user
+export chatMulticanaleLoginPassword=loginpassword812@
+export chatMulticanaleAmministratore=amministratore_user
+export chatMulticanaleAmministratorePassword=amministratorePassword123@
+export chatMulticanaleLavoratore=lavoratore_user
+export chatMulticanaleLavoratorePassword=lavoratorePaswword123@
+export chatMulticanaleCapo=capoProgetto_user
+export chatMulticanaleCapoPassword=capoProgetto_userpassword

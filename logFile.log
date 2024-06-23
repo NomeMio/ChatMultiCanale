@@ -1,0 +1,116 @@
+May 23, 2024 3:46:04 PM utils.CostumLogger logString
+WARNING: jdbc:mariadb://localhost:3306/progettoBasi;chatMulticanaleLogin=login_user
+May 23, 2024 3:46:07 PM utils.CostumLogger logString
+WARNING: jdbc:mariadb://localhost:3306/progettoBasi;chatMulticanaleLogin=login_user
+May 23, 2024 3:46:32 PM utils.CostumLogger logString
+WARNING: jdbc:mariadb://localhost:3306/progettoBasi
+May 23, 2024 4:01:27 PM utils.CostumLogger logString
+WARNING: LAV1
+May 24, 2024 3:01:54 PM utils.CostumLogger logError
+WARNING: /textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:02:06 PM utils.CostumLogger logError
+WARNING: ./textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:02:48 PM utils.CostumLogger logError
+WARNING: /textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:02:56 PM utils.CostumLogger logError
+WARNING: textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:03:08 PM utils.CostumLogger logError
+WARNING: utils/textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:04:23 PM utils.CostumLogger logError
+WARNING: utils/textArt/Chat.txt (No such file or directory)
+May 24, 2024 3:47:58 PM utils.CostumLogger logError
+WARNING: Stream closed
+May 24, 2024 3:47:59 PM utils.CostumLogger logError
+WARNING: (conn=31) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 3:49:04 PM utils.CostumLogger logString
+WARNING: dd
+May 24, 2024 3:49:04 PM utils.CostumLogger logError
+WARNING: (conn=32) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 3:49:32 PM utils.CostumLogger logError
+WARNING: (conn=33) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 3:58:27 PM utils.CostumLogger logError
+WARNING: (conn=57) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 3:59:45 PM utils.CostumLogger logError
+WARNING: (conn=58) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 4:01:22 PM utils.CostumLogger logError
+WARNING: (conn=59) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'
+May 24, 2024 4:05:23 PM utils.CostumLogger logError
+WARNING: (conn=62) Incorrect arguments to mysqld_stmt_execute
+May 25, 2024 11:44:49 PM utils.CostumLogger logError
+WARNING: (conn=44) Data too long for column 'usernameUtenteInput' at row 8
+May 29, 2024 5:14:49 PM utils.CostumLogger logError
+WARNING: (conn=123) parameter name nomeP not found
+May 29, 2024 5:15:31 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+May 29, 2024 5:27:00 PM utils.CostumLogger logError
+WARNING: (conn=126) parameter name nomeP not found
+May 29, 2024 5:33:19 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+May 29, 2024 8:57:02 PM utils.CostumLogger logError
+WARNING: (conn=37) parameter name cfL not found
+May 29, 2024 8:58:56 PM utils.CostumLogger logError
+WARNING: (conn=39) parameter name cfL not found
+May 30, 2024 3:08:26 PM utils.CostumLogger logError
+WARNING: Unknown label 'nomeP'. Possible value [canale.tipoca, nomeca, canale.dataca, canale.nomeca, dataca, tipoca]
+May 30, 2024 3:11:08 PM utils.CostumLogger logError
+WARNING: Unknown label 'dataP'. Possible value [canale.tipoca, nomeca, canale.dataca, canale.nomeca, dataca, tipoca]
+Jun 03, 2024 11:42:58 PM utils.CostumLogger logError
+WARNING: (conn=34) parameter name nomeP not found
+Jun 03, 2024 11:43:06 PM utils.CostumLogger logError
+WARNING: (conn=34) parameter name nomeP not found
+Jun 03, 2024 11:44:46 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 03, 2024 11:45:39 PM utils.CostumLogger logError
+WARNING: (conn=39) parameter name nomeP not found
+Jun 03, 2024 11:46:31 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 4:14:42 PM utils.CostumLogger logString
+WARNING: progeto1
+Jun 05, 2024 4:14:42 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 4:14:42 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 4:15:10 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 4:15:10 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 4:15:10 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 4:16:15 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 4:16:15 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 4:16:15 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 4:26:03 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 4:26:03 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 4:26:03 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 4:26:45 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 4:26:45 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 4:26:45 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 05, 2024 5:52:50 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 5:52:50 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 5:53:54 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 5:53:54 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 5:54:15 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 5:54:15 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 5:55:37 PM utils.CostumLogger logString
+WARNING: progetto1
+Jun 05, 2024 5:55:37 PM utils.CostumLogger logString
+WARNING: test
+Jun 05, 2024 5:57:33 PM org.jboss.logmanager.JBossLoggerFinder getLogger
+ERROR: The LogManager accessed before the "java.util.logging.manager" system property was set to "org.jboss.logmanager.LogManager". Results may be unexpected.
+Jun 20, 2024 4:14:49 PM utils.CostumLogger logError
+WARNING: (conn=47) Access denied for user 'login_user'@'localhost' to database 'progettoBasi'

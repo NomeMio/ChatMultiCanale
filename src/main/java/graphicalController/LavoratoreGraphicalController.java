@@ -1,10 +1,7 @@
 package graphicalController;
 
 import Exceptions.DbProblemEception;
-import beans.CanaleBean;
-import beans.CanalePrivatoBean;
-import beans.MessaggioBean;
-import beans.ProgettoBean;
+import beans.*;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
 import com.acidmanic.consoletools.table.Table;
 import com.acidmanic.consoletools.table.builders.TableBuilder;
@@ -32,7 +29,7 @@ public class LavoratoreGraphicalController implements Runnable{
                 PrinterCostum.clearConsole(2);
                 return;
             }
-            TablePrinter.progettiLavoratoriPrinter(beansProgetti, LavoratoreSIngleton.getLavoratore().getCf());
+            TablePrinter.progettiLavoratoriPrinter(beansProgetti, controller.getLavCf());
             int scelta;
             while(true){
                 System.out.println("Inserire l'indice del progetto che si vuole consultrare(-1 per uscire):");
@@ -46,7 +43,7 @@ public class LavoratoreGraphicalController implements Runnable{
     }
 
     private void progettoGuiSelector(ProgettoBean bean){
-        if(Objects.equals(bean.getCfCapo(), LavoratoreSIngleton.getLavoratore().getCf())){
+        if(Objects.equals(bean.getCfCapo(),new LavoratoreController().getLavCf())){
             capoProgettoGUI(bean);
         }else{
             lavoratoreGUi(bean);
@@ -114,12 +111,11 @@ public class LavoratoreGraphicalController implements Runnable{
 
     private void renderCanaliPrivatiLavoratore(CanaleBean canaleBean)   {
         PrinterCostum.clearConsole(0);
-        assert LavoratoreSIngleton.getLavoratore() != null;
-        String cf=LavoratoreSIngleton.getLavoratore().getCf();
+
         LavoratoreController controller=new LavoratoreController();
         CanalePrivatoBean[] beans;
         try {
-            beans= controller.getCanaliPrivati(canaleBean,cf);
+            beans= controller.getCanaliPrivati(canaleBean, controller.getLavCf());
         } catch (DbProblemEception e) {
             System.out.println(e.getMessage());
             PrinterCostum.clearConsole(1);
@@ -129,6 +125,34 @@ public class LavoratoreGraphicalController implements Runnable{
 
 
     }
+
+
+    private void renderCanaliPrivati(CanalePrivatoBean[] beans){
+        TablePrinter.stampaCanaliPrivati(beans);
+        System.out.println("Scegliere il canale che si vuole consultare oppure digitare 0 per usicre");
+        int scelta=PrinterCostum.getSceltaInRange(0,beans.length);
+        if(scelta==0) return;
+        CanalePrivatoBean scleto=beans[scelta-1];
+        while(true){
+            PrinterCostum.clearConsole(0);
+            renderCanalePrivatoMenu(scleto);
+            scelta=PrinterCostum.getSceltaInRange(1,3);
+            switch (scelta){
+                case 1:
+                    renderMenuMessaggi(scleto);
+                    break;
+                case 2:
+                    inserisciMessaggioMenu(scleto,null);
+                    break;
+                case 3:
+                    PrinterCostum.clearConsole(0);
+                    return;
+                default:
+                    continue;
+            }
+        }
+    }
+
 
     private void menuCanaleLavoratore(CanaleBean canaleBean){
         PrinterCostum.clearConsole(0);
