@@ -1,3 +1,4 @@
+import Exceptions.DbProblemEception;
 import dao.LavoratoreDao;
 import dao.dbInteraction.ConnectionSIngleton;
 import dao.dbInteraction.PermessiEnum;
@@ -34,7 +35,7 @@ public class TestStoredProceduresLavoratore {
     }
 
     @Test
-    public void testDaoMessaggi() throws SQLException {
+    public void testDaoMessaggi() throws SQLException, DbProblemEception {
         ConnectionSIngleton.changePermissionLevel(PermessiEnum.LAVORATORE);
         LavoratoreDao dao=LavoratoreDao.getDao();
         ArrayList<Messaggio> messaggi=dao.leggiMessaggi(new Canale("test","progetto1"));

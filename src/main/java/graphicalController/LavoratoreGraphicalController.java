@@ -8,15 +8,10 @@ import beans.ProgettoBean;
 import com.acidmanic.consoletools.drawing.AsciiBorders;
 import com.acidmanic.consoletools.table.Table;
 import com.acidmanic.consoletools.table.builders.TableBuilder;
+import controllers.CapoProgettoController;
 import controllers.LavoratoreController;
-import dao.LavoratoreDao;
-import enge.LavoratoreSIngleton;
-import models.Canale;
-import models.CanalePrivato;
-import models.Lavoratore;
-import utils.PrinterCostum;
 
-import java.sql.SQLException;
+import utils.PrinterCostum;
 import java.util.Objects;
 
 public class LavoratoreGraphicalController implements Runnable{
@@ -59,33 +54,40 @@ public class LavoratoreGraphicalController implements Runnable{
     }
 
 
+    private CanaleBean[] printCanaliPublici(ProgettoBean bean) throws DbProblemEception {
+        LavoratoreController controller=new LavoratoreController();
+        CanaleBean[] canali;
+        canali = controller.getCanaliPubliciLavoratore(bean);
+        int dim=canali.length;
+        TablePrinter.canaliPrinter(canali);
+        return canali;
+    }
+
+    private CanaleBean scegliCanalePublico(CanaleBean[] bean){
+        int size=bean.length;
+        System.out.println("Inserire il numero del canale che si vuole consultrare oppure 0 per uscire");
+        int scelta=PrinterCostum.getSceltaInRange(0,size);
+        return scelta==0?null:bean[scelta-1];
+    }
+
     private void lavoratoreGUi(ProgettoBean bean){
         PrinterCostum.clearConsole(0);
-        LavoratoreController controller=new LavoratoreController();
+
         while (true){
-            CanaleBean[] canali;
+            CanaleBean[] canali= null;
             try {
-                canali = controller.getCanaliPubliciLavoratore(bean);
+                canali = printCanaliPublici(bean);
             } catch (DbProblemEception e) {
                 System.out.println(e.getMessage());
                 return;
             }
-            int dim=canali.length;
-            if(dim==0){
-                System.out.println("Non partecipi a nessun Canale");
-                PrinterCostum.clearConsole(2);
+            if(canali.length==0){
+                System.out.println("Non partecipi a nessun canale");
                 return;
             }
-            TablePrinter.canaliPrinter(canali);
-            int scelta;
-            while(true){
-                System.out.println("Inserire l'indice del canale di cui si vogliono leggere i messaggi(-1 per uscire):");
-                scelta = Integer.parseInt(PrinterCostum.getString());
-                if(scelta==-1)return;
-                else if (scelta<-1 || scelta>dim || scelta==0)continue;
-                menuCanaleLavoratore(canali[scelta-1]);
-                break;
-            }
+            CanaleBean canale=scegliCanalePublico(canali);
+            if(canale==null)return;
+            menuCanaleLavoratore(canale);
         }
     }
 
@@ -123,28 +125,7 @@ public class LavoratoreGraphicalController implements Runnable{
             PrinterCostum.clearConsole(1);
             return;
         }
-        TablePrinter.stampaCanaliPrivati(beans);
-        System.out.println("Scegliere il canale che si vuole consultare oppure digitare 0 per usicre");
-        int scelta=PrinterCostum.getSceltaInRange(0,beans.length);
-        if(scelta==0) return;
-        CanalePrivatoBean scleto=beans[scelta-1];
-        while(true){
-            PrinterCostum.clearConsole(0);
-            renderCanalePrivatoMenu(scleto);
-            scelta=PrinterCostum.getSceltaInRange(1,3);
-            switch (scelta){
-                case 1:
-                    renderMenuMessaggi(scleto);
-                case 2:
-                    inserisciMessaggioMenu(scleto,null);
-                    break;
-                case 3:
-                    PrinterCostum.clearConsole(0);
-                    return;
-                default:
-                    continue;
-            }
-        }
+        renderCanaliPrivati(beans);
 
 
     }
@@ -217,10 +198,6 @@ public class LavoratoreGraphicalController implements Runnable{
                     }
                     break;
                 case 2:
-                    if(Objects.equals(canaleBean.getTipo(), "privato")){
-                        System.out.println("non puoi rispondere a messaggi di canali privati");
-                        continue;
-                    }
                     renderRispostaMenu(canaleBean,messaggi);
                     try {
                         messaggi=leggiPrimiMessaggi(canaleBean);
@@ -242,7 +219,7 @@ public class LavoratoreGraphicalController implements Runnable{
     }
     private MessaggioBean[] leggiMessaggiSuccessivi(MessaggioBean ultimoMessaggio) throws DbProblemEception {
         LavoratoreController controller =new LavoratoreController();
-        return controller.getMessaggiPrecedenti(ultimoMessaggio.getIdPrecedente());
+        return controller.getMessaggiPrecedenti(ultimoMessaggio);
 
     }
     private MessaggioBean[] leggiPrimiMessaggi(CanaleBean bean) throws DbProblemEception {
@@ -274,12 +251,27 @@ public class LavoratoreGraphicalController implements Runnable{
                 inserisciMessaggioMenu(canale,messaggioScelto);
                 break;
             case 2:
+                if(Objects.equals(canale.getTipo(), "privato")){
+                    System.out.println("non puoi rispondere a messaggi di canali privati");
+                    return;
+                }
+                creaCanalePrivato(messaggioScelto);
                 break;
             case 3:
                 return;
             default:
                 return;
         }
+    }
+    private void creaCanalePrivato(MessaggioBean bean){
+        try{
+            LavoratoreController controller=new LavoratoreController();
+            controller.creaNuovoCanalePrivato(bean);
+        }catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Canale Privato creato con successo");
     }
 
 
@@ -320,8 +312,169 @@ public class LavoratoreGraphicalController implements Runnable{
         System.out.println(table.render());
     }
 
+    /// Sezione capo progetto
+
+    private void renderCanaleMenuCapo(CanaleBean bean){
+
+        Table table = new TableBuilder()
+                .tableBorder(AsciiBorders.DOUBLELINE)
+                .cell(
+                        (TableBuilder builder) -> builder.cell("Canale "+bean.getNome()+" del progetto "+bean.getProgetto())).border(AsciiBorders.BOLD)
+                .row().cell((TableBuilder builder) -> builder
+                        .row().cell("Opearzioni Disponibili:")
+                        .row().cell("   1. Leggi Messaggi al interno del canale")
+                        .row().cell("   2. Consulta canali privati nati al interno di questo canale")
+                        .row().cell("   3. Scrivi un messaggio")
+                        .row().cell("   4. Aggiungi lavoratore al canale")
+                        .row().cell("   5. Esci")
+
+
+                ).border()
+                .build();
+        System.out.println(table.render());
+    }
+
+    private void renderProgettoMenuCapo(ProgettoBean bean){
+        Table table = new TableBuilder()
+                .tableBorder(AsciiBorders.DOUBLELINE)
+                .cell(
+                        (TableBuilder builder) -> builder.cell("Progetto "+bean.getNome())).border(AsciiBorders.BOLD)
+                .row().cell((TableBuilder builder) -> builder
+                        .row().cell("Opearzioni Disponibili:")
+                        .row().cell("   1. Visualizza canali")
+                        .row().cell("   2. Crea nuovo canale")
+                        .row().cell("   3. Esci")
+
+
+                ).border()
+                .build();
+        System.out.println(table.render());
+    }
+
+
+    private void renderCanaliPubliciCapo(ProgettoBean bean){
+        PrinterCostum.clearConsole(0);
+        while (true){
+            CanaleBean[] canali;
+            try {
+                canali = printCanaliPublici(bean);
+            } catch (DbProblemEception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+            if(canali.length==0){
+                System.out.println("Non partecipi a nessun canale");
+                return;
+            }
+            CanaleBean canale=scegliCanalePublico(canali);
+            if(canale==null)return;
+            menuCanaleCAPO(bean,canale);
+        }
+    }
+
+
+    private void menuAggiungiLavoratoreAlCanale(ProgettoBean progettoBean,CanaleBean canaleBean){
+            PrinterCostum.clearConsole(0);
+            CandidatiCanale[] candidatiCanales;
+            CapoProgettoController controller;
+            try{
+                controller = new CapoProgettoController(progettoBean);
+                candidatiCanales=controller.getCanditaiPerCanali(canaleBean);
+            } catch (DbProblemEception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+            TablePrinter.printerCandidatiCanale(candidatiCanales);
+            System.out.println("Scelgliere un lacoratore( oppure 0 per uscire)");
+            int scelta=PrinterCostum.getSceltaInRange(0,candidatiCanales.length);
+        try {
+            controller.inserisciLavoratoreNelCanale(canaleBean,candidatiCanales[scelta]);
+        } catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Inserito con successo");
+    }
+
+    private void menuCanaleCAPO(ProgettoBean progettoBean, CanaleBean canaleBean) {
+        while (true){
+            PrinterCostum.clearConsole(1);
+            renderCanaleMenuCapo(canaleBean);
+            int scelta=PrinterCostum.getSceltaInRange(1,4);
+            switch (scelta){
+                case 1:
+                    renderMenuMessaggi(canaleBean);
+                    break;
+                case 2:
+                    renderMenuCanaliPrivatiCapo(progettoBean,canaleBean);
+                    break;
+                case 3:
+                    inserisciMessaggioMenu(canaleBean,null);
+                    break;
+                case 4:
+                    menuAggiungiLavoratoreAlCanale(progettoBean,canaleBean);
+                    return;
+                case 5:
+                    return;
+            }
+        }
+    }
+
+    private void renderMenuCanaliPrivatiCapo(ProgettoBean progettoBean, CanaleBean canaleBean){
+        PrinterCostum.clearConsole(0);
+        String cf=new LavoratoreController().getLavCf();
+        CapoProgettoController controller= null;
+        try {
+            controller = new CapoProgettoController(progettoBean);
+        } catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        CanalePrivatoBean[] beans;
+        try {
+            beans= controller.getCanaliPrivati(canaleBean,cf);
+        } catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            PrinterCostum.clearConsole(1);
+            return;
+        }
+        renderCanaliPrivati(beans);
+
+    }
+
+    private void inserisciNuovoCanalePublico(ProgettoBean bean){
+        PrinterCostum.clearConsole(0);
+        System.out.println("Inserisci il nome del canale che desideri creare :");
+        String nome=PrinterCostum.getString();
+        CanaleBean canale=new CanaleBean(nome, bean.getNome(), null,null);
+        try {
+            CapoProgettoController controller=new CapoProgettoController(bean);
+            controller.inserisciNuovoCanale(canale);
+        } catch (DbProblemEception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Canale creato con successo");
+
+    }
+
     private void capoProgettoGUI(ProgettoBean bean){
-            System.out.println("sei scemo");
+            while (true){
+                PrinterCostum.clearConsole(1);
+                renderProgettoMenuCapo(bean);
+                int scelta=PrinterCostum.getSceltaInRange(1,3);
+                switch (scelta){
+                    case 1:
+                            renderCanaliPubliciCapo(bean);
+                        break;
+                    case 2:
+                        inserisciNuovoCanalePublico(bean);
+                        break;
+                    case 3:
+                        return;
+                    default:
+                }
+            }
     }
 
 }

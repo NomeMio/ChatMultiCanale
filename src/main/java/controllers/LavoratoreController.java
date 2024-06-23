@@ -3,6 +3,8 @@ package controllers;
 import Exceptions.DbProblemEception;
 import beans.*;
 import dao.LavoratoreDao;
+import dao.dbInteraction.ConnectionSIngleton;
+import dao.dbInteraction.PermessiEnum;
 import enge.AmministratoreSingleton;
 import enge.LavoratoreSIngleton;
 import models.*;
@@ -66,28 +68,14 @@ public class LavoratoreController {
 
     public MessaggioBean[] getMessaggi(CanaleBean canale) throws DbProblemEception {
             LavoratoreDao dao=LavoratoreDao.getDao();
-        try {
             return convertiMessaggiToBeanArray(dao.leggiMessaggi(new Canale(canale.getNome(), canale.getProgetto())));
-        } catch (SQLException e) {
-            if(Objects.equals(e.getSQLState(), "45001")){
-                throw new DbProblemEception(e.getMessage());
-            }else{
-                throw new DbProblemEception();
-            }
-        }
+
     }
 
-    public MessaggioBean[] getMessaggiPrecedenti(int idUltimoLetto) throws DbProblemEception {
+    public MessaggioBean[] getMessaggiPrecedenti(MessaggioBean idUltimoLetto) throws DbProblemEception {
         LavoratoreDao dao=LavoratoreDao.getDao();
-        try {
-            return convertiMessaggiToBeanArray(dao.leggiMessaggiPrecedenti(idUltimoLetto));
-        } catch (SQLException e) {
-            if(Objects.equals(e.getSQLState(), "45001")){
-                throw new DbProblemEception(e.getMessage());
-            }else{
-                throw new DbProblemEception();
-            }
-        }
+        return convertiMessaggiToBeanArray(dao.leggiMessaggiPrecedenti(idUltimoLetto.getIdPrecedente()));
+
     }
 
     private MessaggioBean[] convertiMessaggiToBeanArray(ArrayList<Messaggio> messaggi){
@@ -112,11 +100,7 @@ public class LavoratoreController {
     public CanalePrivatoBean[] getCanaliPrivati(CanaleBean canaleOrigine, String cf) throws DbProblemEception {
         LavoratoreDao dao=LavoratoreDao.getDao();
         ArrayList<CanalePrivato> cannali;
-        try {
-            cannali = dao.listaCanaliPrivati(new Canale(canaleOrigine.getNome(), canaleOrigine.getProgetto()),cf);
-        } catch (SQLException e) {
-            throw new DbProblemEception(e.getMessage());
-        }
+        cannali = dao.listaCanaliPrivati(new Canale(canaleOrigine.getNome(), canaleOrigine.getProgetto()),cf);
         CanalePrivatoBean[] beans=new CanalePrivatoBean[cannali.size()];
         int contatore=0;
         for(CanalePrivato canale:cannali){
@@ -134,26 +118,23 @@ public class LavoratoreController {
             Lavoratore lavoratore=LavoratoreSIngleton.getLavoratore();
             Messaggio messaggio=new Messaggio(lavoratore,messaggioBean.getTesto(),new Canale(messaggioBean.getNomeCanale(),messaggioBean.getNomeProgetto()));
             LavoratoreDao dao=LavoratoreDao.getDao();
-        try {
             dao.inserisciMessaggio(messaggio,messaggioPerRisposta.getIdMess());
-        } catch (SQLException e) {
-            if(e.getSQLState()=="45001")throw new DbProblemEception(e.getMessage());
-            throw new DbProblemEception(e.getMessage());
-        }
     }
 
     public void inserisciMessaggio(MessaggioBean messaggioBean) throws DbProblemEception {
         Lavoratore lavoratore=LavoratoreSIngleton.getLavoratore();
         Messaggio messaggio=new Messaggio(lavoratore,messaggioBean.getTesto(),new Canale(messaggioBean.getNomeCanale(),messaggioBean.getNomeProgetto()));
         LavoratoreDao dao=LavoratoreDao.getDao();
-        try {
-            dao.inserisciMessaggio(messaggio,0);
-        } catch (SQLException e) {
-            if(e.getSQLState()=="45001")throw new DbProblemEception(e.getMessage());
-            throw new DbProblemEception(e.getMessage());
-        }
+        dao.inserisciMessaggio(messaggio,0);
+
     }
 
+    public void creaNuovoCanalePrivato(MessaggioBean bean) throws DbProblemEception {
+        Messaggio messaggio=new Messaggio(bean.getIdMess(),bean.getIdPrecedente(),null,bean.getTesto(),null,null);
+        Lavoratore lav=LavoratoreSIngleton.getLavoratore();
+        LavoratoreDao dao=LavoratoreDao.getDao();
+        dao.creaNuovoCanalePrivato(messaggio,lav);
+    }
 
 
 
